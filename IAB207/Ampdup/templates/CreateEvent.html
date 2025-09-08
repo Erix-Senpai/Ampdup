@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+
+
+
+        <!--- My CSS -->
+        <link rel="stylesheet" href="static/style folder/style.css">
+
+        <!-- logo font -->
+        <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+        <!-- Cards font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+            rel="stylesheet">
+        <title>CreateEvent</title>
+    </head>
+
+
+
+
+    <body>
+        <header>
+            <!--Navbar-->
+            <nav class="navbar navbar-expand-md bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">AmpdUP</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <ul class=" navbar-nav nav-pills me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="CreateEvent.html">Create Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="BookingHistory.html">Check Booking</a>
+                            </li>
+                        </ul>
+        
+        
+                        <form class="d-flex flex-grow-1" role="search">
+                            <div class="search-wrapper">
+                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3"
+                                    viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 
+                                                                3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 
+                                                                6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </div>
+                        </form>
+        
+                        <div class="login-btn">
+                            <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>        
+        </header>
+
+
+
+        <main>
+
+            <!--Create Event Form-->
+            <div class="container">
+                <h2>Create or Update Event</h2>
+
+                <!--Event title form-->
+                <form class="Create-Event-Page">
+                    <div class="mb-3">
+                        <label for="EventTitle" class="form-label">Event Title</label>
+                        <input type="text" class="form-control" id="EventTitle" placeholder="Enter event title" required>
+                    </div>
+
+                    <!--Event Description form-->
+                    <div class="mb-3">
+                        <label for="EventDescription" class="form-label">Event Description</label>
+                        <textarea class="form-control" id="EventDescription" rows="3" placeholder="Enter event description" required></textarea>        
+                    </div>
+
+                    <!--Upload event image form-->
+                    <div class="mb-3">
+                        <label for="EventImage" class="form-label">Event Image</label>
+                        <input class="form-control" type="file" id="EventImage" accept="image/*" required>       
+                    </div>
+
+                    <!--Event date form-->
+                    <div class="mb-3">
+                        <label for="EventDate" class="form-label">Event Date</label>
+                        <input type="date" class="form-control" id="EventDate" required>
+                        <button type="button" class="btn btn-primary btn-sm add-date-btn">Add more dates</button>
+                    </div>
+                    
+
+
+                    <!--Event start time form-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="EventTime" class="form-label">Start Time</label>
+                                <input type="time" class="form-control" id="EventTime" required>
+                            </div>
+                        </div>
+
+                        <!--Event end time form-->
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="EventTime" class="form-label">End Time</label>
+                                <input type="time" class="form-control" id="EventTime">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Event location form-->
+                    <div class="mb-3">
+                        <label for="EventLocation" class="form-label">Event Location</label>
+                        <input type="text" class="form-control" id="EventLocation" placeholder="Enter event location" required>
+                    </div>
+
+                    <!--Event category type dropdown form-->
+                    <div class="mb-3">
+                        <label for="EventType" class="form-label">Event Type</label>
+                        <select class="form-select" aria-label="Default select example" required>
+                            <option selected> Choose event type</option>
+                            <option value="1">Concert</option>
+                            <option value="2">DJ Event</option>
+                            <option value="3">Club Night</option> 
+                            <option value="4">Disco</option>
+                            <option value="5">Classical</option>
+                            <option value="6">Music Festival</option>
+                            <option value="7">Gig</option>
+                        </select>
+                    </div>
+
+                    <!--Event status dropdown form-->
+                    <div class="mb-3">
+                        <label for="EventStatus" class="form-label">Event Status</label>
+                        <select class="form-select" aria-label="Default select example"required>
+                            <option selected> Set Event Status</option>
+                            <option value="1">Open</option>
+                            <option value="2">Cancelled</option>
+                            <option value="3">Sold Out</option>
+                            <option value="4">Inactive</option>
+                        </select>
+                    </div>
+
+                        
+                    <!--Submit and restart form buttons-->
+                    <div class="form-buttons d-flex justify-content-center">
+                        <button id="ResetButton" type="reset" class="btn btn-danger">Start Over</button>
+                        <button id="SubmitButton" type="submit" class="btn btn-success">Create Event</button>
+                    </div>
+                </form> 
+            </div>
+        </main>
+
+
+
+
+        <footer>
+            <div class="container bg-body-secondary">
+                <footer class="py-3 my-4 ampdupFooter">
+                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Venues</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Support</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    </ul>
+                    <p class="text-center text-body-secondary">© 2025 AmpdUP, Inc</p>
+                </footer>
+            </div>
+        </footer>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</html>
