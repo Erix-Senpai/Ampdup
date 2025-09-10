@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+
+
+
+        <!--- My CSS -->
+        <link rel="stylesheet" href="static/style folder/style.css">
+
+        <!-- logo font -->
+        <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+        <!-- Cards font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+            rel="stylesheet">
+        <title>EventDetails</title>
+    </head>
+
+
+
+    <body>
+        <header>
+            <!--Navbar-->
+            <nav class="navbar navbar-expand-md bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">AmpdUP</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <ul class=" navbar-nav nav-pills me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('main.CreateEvent') }}">Create Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
+                            </li>
+                        </ul>
+        
+        
+                        <form class="d-flex flex-grow-1" role="search">
+                            <div class="search-wrapper">
+                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3"
+                                    viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 
+                                                                3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 
+                                                                6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </div>
+                        </form>
+        
+                        <div class="login-btn">
+                            <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <main>
+            <!--Main Hero image for Event Details Page-->
+            <div class="container EventDetailsImage">
+                <div class="row">
+                    <div class="col">
+                        <div class="eventdetails-image">
+                            <img src="static/img folder/the weeknd.jpg" class="card-img-top" alt="...">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <!--Event Status-->
+            <div class="container EventDetailsPage">
+                <div class="row">
+                    <div class="col-lg-12 col-xl-8 left-column">
+                        <div class="eventdetails-status">
+                            <p><span id="event-details-badge" class="badge rounded-pill text-bg-primary">Open</span></p>
+                        </div>
+                    
+                
+                
+                        
+                        <!--Event Title and Description-->
+                        <div class="event-title-description">
+                            <h4> The Weeknd: After Hours Til Dawn Tour </h4>
+                            <p>Previously titled the 'After Hours Tour', this is the seventh concert tour by Canadian singer-songwriter
+                                The Weeknd.
+                                The Weeknd is bringing the 'After Hours Til Dawn Tour' to Brisbane's Suncorp Stadium. Experience his
+                                electrifying setlist
+                                with special guest Playboi Carti & special guest Mike Dean.
+                            </p>
+                        </div>
+
+                        
+                        
+                        <!--Event Date and Time-->
+                        <div class="event-date-time">
+                            <div class="d-inline-flex align-items-center calendar-symbol">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                                <p> Sat, 18 October, 6:00pm - 8:30pm AEST</p>
+                            </div>
+                        </div>
+
+                            
+                            
+                        <!--Event Location-->
+                        <div class="eventdetails-location">
+                            <div class="d-inline-flex align-items-center location-symbol">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                                <p> Suncorp Stadium, 40 Castlemaine St, Milton QLD 4064</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Get Tickets button-->
+                    <div class="col-lg-12 col-xl-4 right-column">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card-get-tickets">
+                                    <div class="card-body">
+                                        <div class="btn-box">
+                                            <button type="button" class="btn btn-primary btn-get-tickets" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                Get Tickets
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--Comment Section-->
+            <div class="container-fluid comment-section">
+                <h5>Comments</h5>
+                    <div class="card-commenter">
+                        <span class="p1">John Doe</span>
+                        <span class="p2">2 hours ago</span>
+                    </div>
+                    <div class="card-body comment">
+                        <p3>I'm so excited for this! I can't wait.</p3>
+                    </div>
+            
+
+                    <div class="card-commenter">
+                        <span class="p1">Devashree Kadia</span>
+                        <span class="p2">1 day ago</span>
+                    </div>
+                    <div class="card-body comment">
+                        <p3>The goat finally coming to Brisbane omg.</p3>
+                    </div>
+                    
+
+                <!--Form to post comment-->
+                <div class="form-floating">
+                    <label for="floatingTextarea2"> Leave a Comment</label> 
+                    <textarea class="form-control" placeholder="Share your thoughts about the event" id="floatingTextarea2"
+                    style="height: 100px"
+                    ></textarea>
+                </div>
+                <div class="post-comment">
+                    <button class="btn btn-success" type="submit">Post Comment</button>
+                </div>
+            </div>            
+        </main>
+
+
+
+        <!--Modal that pops up when user click on 'Get Ticket' button-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Book Your Tickets</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div>
+                                    <label for="tickettype1" class="ticketlabel">General Admission</label>
+                                    <div class="ticket-price">$ 120.00</div>
+                                    <div class="ticket-details">Oct 18, 6:00pm AEST</div>
+                                </div>
+                                <select class="select-ticket-number">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div>
+                                    <label for="tickettype2" class="ticketlabel">VIP Experience</label>
+                                    <div class="ticket-price">$ 200.00</div>
+                                    <div class="ticket-details">Oct 18, 6:00pm AEST</div>
+                                </div>
+                                <select class="select-ticket-number">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Continue</button>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+
+
+
+        <footer>
+            <div class="container bg-body-secondary">
+                <footer class="py-3 my-4 ampdupFooter">
+                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Venues</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Support</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    </ul>
+                    <p class="text-center text-body-secondary">© 2025 AmpdUP, Inc</p>
+                </footer>
+            </div>
+        </footer>
+
+
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</html>
+

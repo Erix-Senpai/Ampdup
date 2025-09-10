@@ -41,13 +41,13 @@
                     <div class="collapse navbar-collapse" id="navbarToggler">
                         <ul class=" navbar-nav nav-pills me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="CreateEvent.html">Create Event</a>
+                                <a class="nav-link" href="{{ url_for('main.CreateEvent') }}">Create Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="BookingHistory.html">Check Booking</a>
+                                <a class="nav-link" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
                             </li>
                         </ul>
         

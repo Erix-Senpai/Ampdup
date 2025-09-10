@@ -33,13 +33,13 @@
                     <div class="collapse navbar-collapse" id="navbarToggler">
                         <ul class=" navbar-nav nav-pills me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="CreateEvent.html">Create Event</a>
+                                <a class="nav-link" href="{{ url_for('main.CreateEvent') }}">Create Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="BookingHistory.html">Check Booking</a>
+                                <a class="nav-link" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
                             </li>
                         </ul>
 
@@ -189,7 +189,7 @@
                                         <p class="card-text"><small class="text-body-secondary">Suncorp Stadium</small></p>
                                     </div>
                                     <div>
-                                    <a href="Event Details.html" class="btn btn-primary stretched-link">View Details</a>
+                                    <a href="{{ url_for('main.Event_Details') }}" class="btn btn-primary stretched-link">View Details</a>
                                     </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                                         <p class="card-text"><small class="text-body-secondary">Prohibition Nightclub</small></p>
                                     </div>
                                     <div>
-                                        <a href="Event Details.html" class="btn btn-primary stretched-link">View Details</a>
+                                        <a href="{{ url_for('main.Event_Details') }}" class="btn btn-primary stretched-link">View Details</a>
                                     </div>
                             </div>
                         </div>
@@ -243,7 +243,7 @@
                                         <p class="card-text"><small class="text-body-secondary">Eatons Hill Hotel Grand Ballroom</small></p>
                                     </div>
                                     <div>
-                                        <a href="Event Details.html" class="btn btn-primary stretched-link">View Details</a>
+                                        <a href="{{ url_for('main.Event_Details') }}" class="btn btn-primary stretched-link">View Details</a>
                                     </div>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
                                         <p class="card-text"><small class="text-body-secondary">Black Bear Lodge</small></p>
                                     </div>
                                     <div>
-                                        <a href="Event Details.html" class="btn btn-primary stretched-link">View Details</a>
+                                        <a href="{{ url_for('main.Event_Details') }}" class="btn btn-primary stretched-link">View Details</a>
                                     </div>
                             </div>
                         </div>
