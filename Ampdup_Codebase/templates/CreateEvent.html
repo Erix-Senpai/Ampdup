@@ -9,28 +9,28 @@
                 <h2>Create or Update Event</h2>
 
                 <!--Event title form-->
-                <form class="Create-Event-Page">
+                <form class="Create-Event-Page" action="/Create_Event" method="POST">
                     <div class="mb-3">
                         <label for="EventTitle" class="form-label">Event Title</label>
-                        <input type="text" class="form-control" id="EventTitle" placeholder="Enter event title" required>
+                        <input type="text" class="form-control" id="EventTitle" name="CreateEventTitle" placeholder="Enter event title" required>
                     </div>
 
                     <!--Event Description form-->
                     <div class="mb-3">
                         <label for="EventDescription" class="form-label">Event Description</label>
-                        <textarea class="form-control" id="EventDescription" rows="3" placeholder="Enter event description" required></textarea>        
+                        <textarea class="form-control" id="EventDescription" name="CreateEventDescription" rows="3" placeholder="Enter event description" required></textarea>        
                     </div>
 
                     <!--Upload event image form-->
                     <div class="mb-3">
                         <label for="EventImage" class="form-label">Event Image</label>
-                        <input class="form-control" type="file" id="EventImage" accept="image/*" required>       
+                        <input class="form-control" type="file" id="EventImage" name="CreateEventImage" accept="image/*" required>       
                     </div>
 
                     <!--Event date form-->
                     <div class="mb-3">
                         <label for="EventDate" class="form-label">Event Date</label>
-                        <input type="date" class="form-control" id="EventDate" required>
+                        <input type="date" class="form-control" id="EventDate" name="CreateEventDate" required>
                         <button type="button" class="btn btn-primary btn-sm add-date-btn">Add more dates</button>
                     </div>
                     
@@ -41,7 +41,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="EventTime" class="form-label">Start Time</label>
-                                <input type="time" class="form-control" id="EventTime" required>
+                                <input type="time" class="form-control" id="EventStartTime" name="CreateEventStartTime" required>
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="EventTime" class="form-label">End Time</label>
-                                <input type="time" class="form-control" id="EventTime">
+                                <input type="time" class="form-control" id="EventEndTime" name="CreateEventEndTime" required>
                             </div>
                         </div>
                     </div>
@@ -58,13 +58,13 @@
                     <!--Event location form-->
                     <div class="mb-3">
                         <label for="EventLocation" class="form-label">Event Location</label>
-                        <input type="text" class="form-control" id="EventLocation" placeholder="Enter event location" required>
+                        <input type="text" class="form-control" id="EventLocation" name="CreateEventLocation" placeholder="Enter event location" required>
                     </div>
 
                     <!--Event category type dropdown form-->
                     <div class="mb-3">
                         <label for="EventType" class="form-label">Event Type</label>
-                        <select class="form-select" aria-label="Default select example" required>
+                        <select class="form-select" aria-label="Default select example" id="EventType" name="CreateEventType" required>
                             <option selected> Choose event type</option>
                             <option value="1">Concert</option>
                             <option value="2">DJ Event</option>
@@ -79,7 +79,7 @@
                     <!--Event status dropdown form-->
                     <div class="mb-3">
                         <label for="EventStatus" class="form-label">Event Status</label>
-                        <select class="form-select" aria-label="Default select example"required>
+                        <select class="form-select" aria-label="Default select example" id="EventStatus" name="CreateEventStatus" required>
                             <option selected> Set Event Status</option>
                             <option value="1">Open</option>
                             <option value="2">Cancelled</option>
