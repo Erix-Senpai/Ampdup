@@ -35,7 +35,7 @@ class EventForm(FlaskForm):
                 raise ValidationError("Event date must be 1 day prior to the current date.")
     EventTitle = StringField("Event Title", validators=[InputRequired(message="Must have an event title.")])
     EventDescription = TextAreaField("Event Description", validators=[InputRequired(message="Must have a description of the event.")])
-    EventImage = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'png'], message="File type must be .png or .jpg.")])
+    EventImage = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'jpeg', 'png'], message="File type must be .png, .jpeg or .jpg.")])
     EventDate = DateField("Event Date", format="%Y-%m-%d", validators=[InputRequired(message="Must have a starting date of event."), FutureDateOnly])
     EventStartTime = TimeField("Event Start Time", format="%H:%M", default=time(0,0), validators=[DataRequired(message="Must have a starting time.")])
     EventEndTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])
