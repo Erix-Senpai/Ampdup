@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
-create_event_bp = Blueprint('Create_Event', __name__)
+book_ticket_bp = Blueprint('book_ticket', __name__)
 
-@create_event_bp.route('/Create_Event', methods=['POST'])
-def Create_Event():
+@book_ticket_bp.route('/book_ticket', methods=['POST'])
+def Ticket():
     EventTitle = request.form.get("CreateEventTitle")
     EventDescription = request.form.get("CreateEventDescription")
     EventImage = request.form.get("CreateEventImage")
@@ -12,4 +12,4 @@ def Create_Event():
     EventType = request.form.get("CreateEventType")
     EventStatus = request.form.get("CreateEventStatus")
     print("DEBUG - Got Event:", EventTitle, EventDescription, EventImage)
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.BookingHistory'))
