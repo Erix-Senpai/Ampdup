@@ -9,47 +9,62 @@
                 <h2>Create or Update Event</h2>
 
                 <!--Event title form-->
-                <form class="Create-Event-Page" action="/Create_Event" method="POST">
+                <form class="Create-Event-Page" action="{{ url_for('CreateEvent.Event') }}" method="POST">
+                    {{ event_form.hidden_tag()}}
                     <div class="mb-3">
-                        <label for="EventTitle" class="form-label">Event Title</label>
-                        <input type="text" class="form-control" id="EventTitle" name="CreateEventTitle" placeholder="Enter event title" required>
+                        {{ event_form.EventTitle.label(class="form-label") }}
+                        {{ event_form.EventTitle(class="form-control", id="EventTitle", placeholder="Enter event title")}}
+                        {% for error in event_form.EventTitle.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
 
                     <!--Event Description form-->
                     <div class="mb-3">
-                        <label for="EventDescription" class="form-label">Event Description</label>
-                        <textarea class="form-control" id="EventDescription" name="CreateEventDescription" rows="3" placeholder="Enter event description" required></textarea>        
+                        {{ event_form.EventDescription.label(class="form-label")}}
+                        {{ event_form.EventDescription(class="form-control", id="EventDescription", rows="3", placeholder="Enter event description")}}
+                        {% for error in event_form.EventDescription.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}      
                     </div>
 
                     <!--Upload event image form-->
                     <div class="mb-3">
-                        <label for="EventImage" class="form-label">Event Image</label>
-                        <input class="form-control" type="file" id="EventImage" name="CreateEventImage" accept="image/*" required>       
+                        {{ event_form.EventImage.label(class="form-label")}}
+                        {{ event_form.EventImage(class="form-control", id="EventImage")}}
+                        {% for error in event_form.EventImage.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}       
                     </div>
 
                     <!--Event date form-->
                     <div class="mb-3">
-                        <label for="EventDate" class="form-label">Event Date</label>
-                        <input type="date" class="form-control" id="EventDate" name="CreateEventDate" required>
-                        <button type="button" class="btn btn-primary btn-sm add-date-btn">Add more dates</button>
+                        {{ event_form.EventDate.label(class="form-label")}}
+                        {{ event_form.EventDate(class="form-control", id="EventDate")}}
+                        {% for error in event_form.EventDate.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}    
                     </div>
-                    
-
-
                     <!--Event start time form-->
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
-                                <label for="EventTime" class="form-label">Start Time</label>
-                                <input type="time" class="form-control" id="EventStartTime" name="CreateEventStartTime" required>
+                                {{ event_form.EventStartTime.label(class="form-label")}}
+                                {{ event_form.EventStartTime(class="form-control", id="EventStartTime")}}
+                                {% for error in event_form.EventStartTime.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                                {% endfor %}    
                             </div>
                         </div>
 
                         <!--Event end time form-->
                         <div class="col">
                             <div class="mb-3">
-                                <label for="EventTime" class="form-label">End Time</label>
-                                <input type="time" class="form-control" id="EventEndTime" name="CreateEventEndTime" required>
+                                {{ event_form.EventEndTime.label(class="form-label")}}
+                                {{ event_form.EventEndTime(class="form-control", id="EventEndTime")}}
+                                {% for error in event_form.EventEndTime.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -57,35 +72,29 @@
 
                     <!--Event location form-->
                     <div class="mb-3">
-                        <label for="EventLocation" class="form-label">Event Location</label>
-                        <input type="text" class="form-control" id="EventLocation" name="CreateEventLocation" placeholder="Enter event location" required>
+                        {{ event_form.EventLocation.label(class="form-label")}}
+                        {{ event_form.EventLocation(class="form-control", id="EventLocation", placeholder="Enter event location")}}
+                        {% for error in event_form.EventLocation.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
 
                     <!--Event category type dropdown form-->
                     <div class="mb-3">
-                        <label for="EventType" class="form-label">Event Type</label>
-                        <select class="form-select" aria-label="Default select example" id="EventType" name="CreateEventType" required>
-                            <option selected> Choose event type</option>
-                            <option value="1">Concert</option>
-                            <option value="2">DJ Event</option>
-                            <option value="3">Club Night</option> 
-                            <option value="4">Disco</option>
-                            <option value="5">Classical</option>
-                            <option value="6">Music Festival</option>
-                            <option value="7">Gig</option>
-                        </select>
+                        {{ event_form.EventType.label(class="form-label")}}
+                        {{ event_form.EventType(class="form-select", id="EventType", placeholder="Select Event Type")}}
+                        {% for error in event_form.EventType.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
 
                     <!--Event status dropdown form-->
                     <div class="mb-3">
-                        <label for="EventStatus" class="form-label">Event Status</label>
-                        <select class="form-select" aria-label="Default select example" id="EventStatus" name="CreateEventStatus" required>
-                            <option selected> Set Event Status</option>
-                            <option value="1">Open</option>
-                            <option value="2">Cancelled</option>
-                            <option value="3">Sold Out</option>
-                            <option value="4">Inactive</option>
-                        </select>
+                        {{ event_form.EventStatus.label(class="form-label")}}
+                        {{ event_form.EventStatus(class="form-select", id="EventStatus", placeholder="Set Event Status")}}
+                        {% for error in event_form.EventStatus.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
 
                         
