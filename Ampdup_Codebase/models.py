@@ -1,4 +1,4 @@
-class Destination:
+class Event:
 
     def __init__(self, name, description, image, currency):
         self.name = name
