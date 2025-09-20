@@ -16,6 +16,13 @@ def Event():
         EventType = event_form.EventType.data
         EventStatus = event_form.EventStatus.data
         print("DEBUG - Got Event:")
+        ### Tell SQL to save these data, additioanlly save a data for EventStatus Colour Code.
+        match EventStatus:
+            case "Open": StatusCode = "badge1"
+            case "Sold Out": StatusCode = "badge2"
+            case "Cancelled": StatusCode = "badge3"
+            case "Inactive": StatusCode = "badge4"
+            case _ : StatusCode = "badge4"
         return redirect(url_for('main.BookingHistory'))
     
     
