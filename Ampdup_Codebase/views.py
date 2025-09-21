@@ -13,3 +13,7 @@ def BookingHistory():
 @mainbp.route('/CreateEvent')
 def CreateEvent():
     return render_template('CreateEvent.html')
+
+@mainbp.route('/Event_Details')
+def Event_Details():
+    return render_template('Event_Details.html')
