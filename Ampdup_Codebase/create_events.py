@@ -1,10 +1,10 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
 from .forms import EventForm
-event_bp = Blueprint('CreateEvent', __name__)
+create_event_bp = Blueprint('CreateEvent', __name__, url_prefix="/Create_Event")
 
 # Event Routing Bp, dedicated for returning event details.
-@event_bp.route('/CreateEvent', methods=['GET', 'POST'])
-def Event():
+@create_event_bp.route('/', methods=['GET', 'POST'])
+def Create_Event():
     event_form = EventForm()
     if (event_form.validate_on_submit()):
         EventTitle = event_form.EventTitle.data

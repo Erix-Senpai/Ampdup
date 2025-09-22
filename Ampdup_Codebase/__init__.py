@@ -14,8 +14,8 @@ def create_app():
     from . import views
     app.register_blueprint(views.mainbp)
 
-    from . import event
-    app.register_blueprint(event.event_bp)
+    from . import create_events
+    app.register_blueprint(create_events.create_event_bp)
 
     from . import events
     app.register_blueprint(events.eventsbp)
