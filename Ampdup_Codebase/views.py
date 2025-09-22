@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template
-
+from .index_database import Populate_Event
 mainbp = Blueprint('main', __name__ , template_folder='../templates')
 
 @mainbp.route('/')
 def index():
-    return render_template('index.html')
+    events = Populate_Event()
+    print(events)
+    return render_template('index.html', events = events)
 
 @mainbp.route('/BookingHistory')
 def BookingHistory():
