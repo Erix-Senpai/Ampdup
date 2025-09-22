@@ -3,9 +3,10 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.fields.datetime import TimeField, DateField
-from wtforms import SelectField, ValidationError
+from wtforms import SelectField, ValidationError, DecimalField
 from datetime import time
 from datetime import date
+import re
 
 
 
@@ -33,9 +34,25 @@ class EventForm(FlaskForm):
             CurrentDate = date.today()
             if (fields.data <= CurrentDate):
                 raise ValidationError("Event date must be 1 day prior to the current date.")
+    def AcceptedPriceField(form, fields):
+        if (fields.data):
+            try:
+                value = fields.data
+                print(value)
+                if re.match(r"^\d+\.\d{2}$", str(value)):
+                    if (value < 0):
+                        raise ValidationError(message="Price must be a positive value.")
+                    if (int(value) > 1000000):
+                        raise ValidationError(message="Price is over the limit of AUD$1,000,000. Please contact support for ticket with sales over AUD$1,000,000.")
+                else:
+                    raise ValidationError(message="Price must be in the format: $1234.56")
+            except Exception:
+                raise ValidationError(message="Price must be in the format: $1234.56")
+                
     EventTitle = StringField("Event Title", validators=[InputRequired(message="Must have an event title.")])
     EventDescription = TextAreaField("Event Description", validators=[InputRequired(message="Must have a description of the event.")])
     EventImage = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'jpeg', 'png'], message="File type must be .png, .jpeg or .jpg.")])
+    EventTicket = DecimalField("Ticket Price", places=2, validators=[InputRequired(message="Price must be in the format: $1234.56"), AcceptedPriceField])
     EventDate = DateField("Event Date", format="%Y-%m-%d", validators=[InputRequired(message="Must have a starting date of event."), FutureDateOnly])
     EventStartTime = TimeField("Event Start Time", format="%H:%M", default=time(0,0), validators=[DataRequired(message="Must have a starting time.")])
     EventEndTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])
