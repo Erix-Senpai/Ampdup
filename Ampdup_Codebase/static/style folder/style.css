@@ -488,7 +488,7 @@ h4 {
 .card-commenter {
     display: inline-flex;
     gap: 20px;
-    padding-top: 20px;
+    padding-top: 40px;
     margin-left: 30px;
 }
 
@@ -505,11 +505,15 @@ h4 {
     font-family: "Nunito", Helvetica, sans-serif;
     opacity: 70%;
     padding-top: 5px;
+    padding-bottom: 10px;
+    margin-left: 40px;
 }
 
-.card-body.comment p3 {
+.comment p {
     font-size: 1rem;
-    margin-left: 30px;
+    margin-left: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 
@@ -519,14 +523,31 @@ h4 {
     padding-top: 20px;
 }
 
-.post-comment {
+.comment-section .form-textarea {
     margin-left: 30px;
     margin-right: 30px;
     padding-top: 10px;
     padding-bottom: 30px;
+    width: 70%;
 }
 
-
+.comment-section .form-button {
+    background-color: #2169b2;
+    color: #ffffff;
+    display: inline-flex;   
+    margin-left: 20px;              
+    height: 30px;
+    padding: 8px 20px;        
+    text-align: center;
+    align-items: center;    
+    justify-content: center;
+    border-radius: 20px;
+    font-family: "Nunito", Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    border-color: #2169b2;
+    line-height: 1;
+}
 
 
 

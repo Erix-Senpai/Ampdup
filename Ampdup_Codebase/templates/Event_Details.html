@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
         <main>
@@ -8,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="eventdetails-image">
-                            <img src="static/img folder/the weeknd.jpg" class="card-img-top" alt="...">
+                            <img src="{{ url_for('static', filename='img folder/the weeknd.jpg') }}" class="card-img-top" alt="...">
                         </div> 
                     </div>
                 </div>
@@ -88,34 +89,22 @@
 
             <!--Comment Section-->
             <div class="container-fluid comment-section">
-                <h5>Comments</h5>
-                    <div class="card-commenter">
-                        <span class="p1">John Doe</span>
-                        <span class="p2">2 hours ago</span>
+                <h5>Comments</h5>                    
+                <div class="row border-bottom"> 
+                    <form method="POST" action="{{ url_for('event.event_details', id=1) }}" class="w-100">
+                        {{ form.hidden_tag() }}
+                        {{ form.text(class="form-textarea", placeholder="Write your comment...") }}
+                        {{ form.submit(class="form-button") }}
+                    </form>
+                    {% for comment in event.comments %}
+                    <div class="col-12 card-commenter">  
+                        <span class="p1">{{ comment.user }}</span>
+                        <span class="p2">{{ comment.created_at }}</span>
                     </div>
-                    <div class="card-body comment">
-                        <p3>I'm so excited for this! I can't wait.</p3>
+                    <div class="col-12 comment">
+                        <p>{{ comment.text }}</p>
                     </div>
-            
-
-                    <div class="card-commenter">
-                        <span class="p1">Devashree Kadia</span>
-                        <span class="p2">1 day ago</span>
-                    </div>
-                    <div class="card-body comment">
-                        <p3>The goat finally coming to Brisbane omg.</p3>
-                    </div>
-                    
-
-                <!--Form to post comment-->
-                <div class="form-floating">
-                    <label for="floatingTextarea2"> Leave a Comment</label> 
-                    <textarea class="form-control" placeholder="Share your thoughts about the event" id="floatingTextarea2"
-                    style="height: 100px"
-                    ></textarea>
-                </div>
-                <div class="post-comment">
-                    <button class="btn btn-success" type="submit">Post Comment</button>
+                    {% endfor %} 
                 </div>
             </div>            
         </main>
