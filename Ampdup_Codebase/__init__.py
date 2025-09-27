@@ -8,6 +8,11 @@ def create_app():
     app = Flask(__name__)
     
     Bootstrap5(app)
+
+    # A secret key for the session object
+    app.secret_key = 'somerandomvalue'
+
+
     app.config['SECRET_KEY'] = secrets.token_hex(16)
     
     #add Blueprints
@@ -19,6 +24,9 @@ def create_app():
 
     from . import events
     app.register_blueprint(events.eventsbp)
+
+    from . import auth
+    app.register_blueprint(auth.auth_bp)
 
     return app
 

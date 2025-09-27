@@ -6,11 +6,11 @@ mainbp = Blueprint('main', __name__ , template_folder='../templates')
 def index():
     events = Populate_Event()
     print(events)
-    return render_template('index.html', events = events)
+    return render_template('index.html', events = events, active_page='Home')
 
 @mainbp.route('/BookingHistory')
 def BookingHistory():
-    return render_template('BookingHistory.html')
+    return render_template('BookingHistory.html', active_page='Check Booking')
 
 @mainbp.route('/Event_Details')
 def Event_Details():

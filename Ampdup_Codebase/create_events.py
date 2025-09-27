@@ -29,4 +29,4 @@ def Create_Event():
         return redirect(url_for('main.BookingHistory'))
     
     # Loads the page of Create Event.
-    return render_template('CreateEvent.html', event_form=event_form)
+    return render_template('CreateEvent.html', event_form=event_form, active_page='Create Event')

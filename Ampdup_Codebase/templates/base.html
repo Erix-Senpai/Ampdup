@@ -33,13 +33,13 @@
                     <div class="collapse navbar-collapse" id="navbarToggler">
                         <ul class=" navbar-nav nav-pills me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
+                                <a class="nav-link {% if active_page == 'Home' %}active{% endif %}" %aria-current="page" href="{{ url_for('main.index') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('CreateEvent.Create_Event') }}">Create Event</a>
+                                <a class="nav-link {% if active_page == 'Create Event' %}active{% endif %}" href="{{ url_for('CreateEvent.Create_Event') }}">Create Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
+                                <a class="nav-link {% if active_page == 'Check Booking' %}active{% endif %}" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
                             </li>
                         </ul>
 
@@ -58,7 +58,7 @@
 
                         <!--Login Button-->
                         <div class="login-btn">
-                            <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
+                            <a href="{{ url_for('auth.login') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
                         </div>
                     </div>
                 </div>    
