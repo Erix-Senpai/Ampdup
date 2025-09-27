@@ -9,7 +9,7 @@
                 <h2>Create or Update Event</h2>
 
                 <!--Event title form-->
-                <form class="Create-Event-Page" action="{{ url_for('CreateEvent.Event') }}" method="POST" enctype="multipart/form-data">
+                <form class="Create-Event-Page" action="{{ url_for('CreateEvent.Create_Event') }}" method="POST" enctype="multipart/form-data">
                     {{ event_form.hidden_tag()}}
                     <div class="mb-3">
                         {{ event_form.EventTitle.label(class="form-label") }}
