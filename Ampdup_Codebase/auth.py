@@ -4,6 +4,7 @@ from flask_login import login_user, login_required, logout_user
 #from .models import User
 from .forms import LoginForm, RegisterForm
 #from . import db
+from flask import session
 
 # Create a blueprint - make sure all BPs have unique names
 auth_bp = Blueprint('auth', __name__)
@@ -14,7 +15,10 @@ auth_bp = Blueprint('auth', __name__)
 # view function
 def login():
     loginForm = LoginForm()
-    if loginForm.validate_on_submit():
+    if loginForm.validate_on_submit():  
+        user_name = loginForm.user_name.data
+        password = loginForm.password.data
+        session['user_name'] = loginForm.user_name.data
         print('Successfully logged in')
         flash('You logged in successfully')
         return redirect(url_for('main.index'))
@@ -27,3 +31,12 @@ def register():
         print('Successfully registered')
         return redirect(url_for('main.index'))
     return render_template('user.html', form=form)
+
+@auth_bp.route('/logout')
+def logout():
+    if 'user_name' in session:
+        session.pop('user_name')
+    flash('You have been logged out')
+    print('Successfully logged out')
+    return redirect(url_for('main.index'))
+

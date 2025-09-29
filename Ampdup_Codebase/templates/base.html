@@ -58,7 +58,11 @@
 
                         <!--Login Button-->
                         <div class="login-btn">
-                            <a href="{{ url_for('auth.login') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
+                            {% if 'user_name' in session %}
+                                <a href="{{ url_for('auth.logout') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log Out</a>
+                            {% else %}
+                                <a href="{{ url_for('auth.login') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Log In</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>    
