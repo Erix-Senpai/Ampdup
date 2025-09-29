@@ -16,7 +16,7 @@ def Index_Populate_Event_1():
             "status": "Open"
         },
         {
-            "title": ">DISCO! at Prohibition",
+            "title": "DISCO! at Prohibition",
             "description": "Get your 90s outfit ready and DISCO! the night away at the Prohibition Nighclub.",
             "image": "static/img folder/disco.jpg",
             "date": 2026-6-16,
