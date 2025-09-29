@@ -1,19 +1,29 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
 
+
+db = SQLAlchemy()
 
 
 import secrets
 def create_app():
     app = Flask(__name__)
-    
-    Bootstrap5(app)
+    app.debug = True
 
+    Bootstrap(app)
+    
     # A secret key for the session object
     app.secret_key = 'somerandomvalue'
 
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    db.init_app(app)
 
     app.config['SECRET_KEY'] = secrets.token_hex(16)
+
+    ctx = app.app_context()
+    ctx.push()
+    db.create_all()
     
     #add Blueprints
     from . import views

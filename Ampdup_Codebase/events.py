@@ -33,5 +33,6 @@ def get_event():
     event.set_comments(Comment("John Doe", "I'm so excited for this! I can't wait.", '2023-08-12 11:00:00'))
     event.set_comments(Comment("Devashree Kadia", "The goat finally coming to Brisbane omg.", '2023-08-12 11:00:00'))
     event.set_comments(Comment("Sally", "Free face masks!", '2023-08-12 11:00:00'))
+    event.set_comments(Comment("Test", "Example", '2023-08-12 11:00:00'))
 
     return event
