@@ -1,12 +1,9 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
-
+import secrets
 
 db = SQLAlchemy()
-
-
-import secrets
 def create_app():
     app = Flask(__name__)
 
@@ -20,9 +17,8 @@ def create_app():
 
     app.config['SECRET_KEY'] = secrets.token_hex(16)
 
-    ctx = app.app_context()
-    ctx.push()
-    db.create_all()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ampdupdb.sqlite'
+    db.init_app(app)
     
     #add Blueprints
     from . import views
