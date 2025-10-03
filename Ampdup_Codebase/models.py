@@ -23,3 +23,4 @@ class Comment:
     def __repr__(self):
         str = f"User {self.user}, \n Text {self.text}"
         return str
+
