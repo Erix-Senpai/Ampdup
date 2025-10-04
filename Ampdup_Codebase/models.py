@@ -1,44 +1,37 @@
 from . import db
 from datetime import datetime
 
-
-
 class User(db.Model):
-    __tablename__   = 'Users'
-    id              = db.Column(db.Integer      ,  primary_key = True)
-    user_name       = db.Column(db.String(20)   ,  unique=False, nullable=False)
-    email           = db.Column(db.String(40)   ,  unique=False, nullable=False)
-    password        = db.Column(db.String(20)   ,  unique=False, nullable=False)
+    __tablename__ = 'users' # good practice to specify table name
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    emailid = db.Column(db.String(100), index=True, nullable=False)
+	# password should never stored in the DB, an encrypted password is stored
+	# the storage should be at least 255 chars long, depending on your hashing algorithm
+    password_hash = db.Column(db.String(255), nullable=False)
+    # relation to call user.comments and comment.created_by
+    comments = db.relationship('Comment', backref='user')
     
-    # Relationships
-    comments        = db.relationship('Comment', backref='User')
-    bookings        = db.relationship('Booking', backref='User')
-
+    # string print method
     def __repr__(self):
-        str = f"User {self.user_name}"
-        return str
+        return f"Name: {self.name}"
+    
 
-
-
-
-class Event(db.Model):    
-    __tablename__   = 'Events'
-    id              = db.Column(db.Integer, primary_key=True)
-    name            = db.Column(db.String(80))
-    description     = db.Column(db.String(200))
-    image           = db.Column(db.String(400))
-    entryfee        = db.Column(db.Integer)
-      
-    # Relationships
-    comments        = db.relationship('Comment', backref='Event')
-
+class Event(db.Model):
+    __tablename__ = 'events'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    description = db.Column(db.String(200))
+    image = db.Column(db.String(400))
+    currency = db.Column(db.String(3))
+    # ... Create the Comments db.relationship
+	# relation to call event.comments and comment.events
+    comments = db.relationship('Comment', backref='event')
+	
+    # string print method
     def __repr__(self):
-        str = f"EventID: {self.id}, Event Name: {self.name}"
-        return str
-   
-    
-    
-    
+        return f"Name: {self.name}"
+
 class Booking(db.Model):
     __tablename__   = 'Bookings'
     id              = db.Column(db.Integer, primary_key=True)       
@@ -51,20 +44,15 @@ class Booking(db.Model):
         str = f"EventID: {self.id}, Event Name: {self.name}"
         return str
 
-
-
-
 class Comment(db.Model):
-    __tablename__   = 'Comments'
-    id              = db.Column(db.Integer, primary_key=True)
-    text            = db.Column(db.String(400))
-    created_at      = db.Column(db.DateTime, default=datetime.now())
-    
-    # Foreign Keys
-    user_id         = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    event_id        = db.Column(db.Integer, db.ForeignKey('Events.id'))
-        
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(400))
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    # add the foreign key
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+
+    # string print method
     def __repr__(self):
-        str         = f"User {self.user}, \n Text {self.text}"
-        return str
-    
+        return f"Comment: {self.text}"
