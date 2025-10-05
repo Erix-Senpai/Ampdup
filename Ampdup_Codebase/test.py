@@ -49,7 +49,7 @@ def Index_Populate_Event_1():
             "status": "Inactive"
         }
     ]
-def Post_Event_db():
+def Upload_Event():
     return(
         "DJ with Dave",
         "BRISBANE GET READY! DJ with Dave is coming with some awesome beats. Let's get this party started!",
@@ -61,4 +61,3 @@ def Post_Event_db():
         "Music Festival",
         "Cancelled"
         )
-Post_Event_db()

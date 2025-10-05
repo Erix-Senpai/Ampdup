@@ -5,7 +5,6 @@ mainbp = Blueprint('main', __name__ , template_folder='../templates')
 @mainbp.route('/')
 def index():
     events = Populate_Event()
-    print(events)
     return render_template('index.html', events = events, active_page='Home')
 
 @mainbp.route('/BookingHistory')
