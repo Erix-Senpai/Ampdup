@@ -51,21 +51,24 @@ def upload_event(event_form):
          case 5: EventType = "Classical"
          case 6: EventType = "Music Festival"
          case 7: EventType = "Gig"
-         #EventStatus = SelectField("Event Status", choices=[(1, "Open"), (2, "Cancelled"), (3, "Sold Out"), (4, "Inactive")])
+         case  _ : EventType = "Concert"
     EventStatus = event_form.EventStatus.data
     match EventStatus:
-         case 1: EventStatus = "Open"
-         case 2: EventStatus = "Cancelled"
-         case 3: EventStatus = "Sold Out"
-         case 4: EventStatus = "Inactive"
-    match EventStatus:
-            # Status Code is stored as a variable, returns as the code to identify the colour code for the status into html.
-            case "Open": StatusCode = "badge1"
-            case "Sold Out": StatusCode = "badge2"
-            case "Cancelled": StatusCode = "badge3"
-            case "Inactive": StatusCode = "badge4"
-            case _ : StatusCode = "badge4"
-    from . import db
+         case 1:
+            EventStatus = "Open"
+            StatusCode = "badge1"
+         case 2:
+            EventStatus = "Cancelled"
+            StatusCode = "badge2"
+         case 3:
+            EventStatus = "Sold Out"
+            StatusCode = "badge3"
+         case 4:
+            EventStatus = "Inactive"
+            StatusCode = "badge4"
+         case  _ :
+            EventStatus = "Inactive"
+            StatusCode = "badge4"
 
     event = Event( EventTitle, EventDescription, EventImage, EventTicket, EventDate, EventStartTime, EventEndTime, EventLocation, EventType, EventStatus, StatusCode)
     # add the object to the db session
@@ -73,5 +76,4 @@ def upload_event(event_form):
     # commit to the database
     db.session.commit()
 
-import test
     
