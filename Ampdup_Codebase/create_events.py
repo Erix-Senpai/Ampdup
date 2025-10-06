@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
 from .forms import EventForm
-from .event_db import upload_event
+from .models import upload_event
 create_event_bp = Blueprint('CreateEvent', __name__, url_prefix="/Create_Event")
 
 # Event Routing Bp, dedicated for returning event details.
