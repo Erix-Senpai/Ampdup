@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap5
+from flask_sqlalchemy import SQLAlchemy
+
 
 
 
@@ -27,6 +29,9 @@ def create_app():
 
     from . import auth
     app.register_blueprint(auth.auth_bp)
+
+    from . import purchase_ticket
+    app.register_blueprint(purchase_ticket.purchase_ticket_bp)
 
     return app
 

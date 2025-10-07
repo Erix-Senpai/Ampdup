@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, FileField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired
+from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired, Regexp
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.fields.datetime import TimeField, DateField
 from wtforms import SelectField, ValidationError, DecimalField
@@ -12,19 +12,19 @@ import re
 
 # creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
-    password=PasswordField("Password", validators=[InputRequired('Enter user password')])
+    user_name=StringField("User Name", validators=[InputRequired('Please enter your user name')])
+    password=PasswordField("Password", validators=[InputRequired('Please enter your password')])
     submit = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired()])
+    user_name=StringField("User Name", validators=[InputRequired("Please enter a user name")])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    phone_number = StringField("Phone Number", validators=[InputRequired("Please enter a phone number"), Regexp(r'^\+?\d{9,15}$', message="Please enter a valid phone number with 9-15 digits")])
     # linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
-                  EqualTo('confirm', message="Passwords should match")])
+                  EqualTo('confirm', message="Passwords should match"), Length(min=6, message="Password must be at least 6 characters long")])
     confirm = PasswordField("Confirm Password")
-
     # submit button
     submit = SubmitField("Register")
 
