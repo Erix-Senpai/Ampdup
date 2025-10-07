@@ -20,79 +20,79 @@ class User(db.Model):
 
 class Event(db.Model):
     __tablename__ = "Event"
-    eventUid = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
-    eventTitle = Column(String, nullable=False)
-    eventDescription = Column(Text, nullable=False)
-    eventImage = Column(LargeBinary, nullable=False)
-    eventTicket = Column(Float, nullable=False)
-    eventDate = Column(String, nullable=False)
-    eventStartTime = Column(String, nullable=False)
-    eventEndTime = Column(String, nullable=False)
-    eventLocation = Column(String, nullable=False)
-    eventType = Column(String, nullable=False)
-    eventStatus = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
+    image = Column(LargeBinary, nullable=False)
+    price = Column(Float, nullable=False)
+    date = Column(String, nullable=False)
+    startTime = Column(String, nullable=False)
+    endTime = Column(String, nullable=False)
+    location = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    status = Column(String, nullable=False)
     statusCode = Column(String, nullable=False)
 
-    comments = db.relationship('Comment', backref='Event')
+    comments = db.relationship('Comment', backref='event')
 	
     
     # string print method
 
-    def __init__(self, title, desc, image, ticket, date, start, end, location, etype, status, code):
-        self.eventTitle = title
-        self.eventDescription = desc
-        self.eventImage = image
-        self.eventTicket = ticket
-        self.eventDate = date
-        self.eventStartTime = start
-        self.eventEndTime = end
-        self.eventLocation = location
-        self.eventType = etype
-        self.eventStatus = status
-        self.statusCode = code
+    def __init__(self, title, description, image, price, date, startTime, endTime, location, etype, status, statusCode):
+        self.title = title
+        self.description = description
+        self.image = image
+        self.price = price
+        self.date = date
+        self.startTime = startTime
+        self.endTime = endTime
+        self.location = location
+        self.type = etype
+        self.status = status
+        self.statusCode = statusCode
 
 def upload_event(event_form):
-    EventTitle = event_form.EventTitle.data
-    EventDescription = event_form.EventDescription.data
-    EventImage = event_form.EventImage.data
-    EventImage = EventImage.read()
-    EventTicket = event_form.EventTicket.data
-    EventDate = event_form.EventDate.data
-    EventDate = str(EventDate)
-    EventStartTime = event_form.EventStartTime.data
-    EventStartTime = str(EventStartTime)
-    EventEndTime = event_form.EventEndTime.data
-    EventEndTime = str(EventEndTime)
-    EventLocation = event_form.EventLocation.data
-    EventType = event_form.EventType.data
-    match EventType:
-         case 1: EventType = "Concert"
-         case 2: EventType = "DJ Event"
-         case 3: EventType = "Club Night"
-         case 4: EventType = "Disco"
-         case 5: EventType = "Classical"
-         case 6: EventType = "Music Festival"
-         case 7: EventType = "Gig"
-         case  _ : EventType = "Concert"
-    EventStatus = event_form.EventStatus.data
-    match EventStatus:
+    title = event_form.title.data
+    description = event_form.description.data
+    image = event_form.image.data
+    image = image.read()
+    price = event_form.price.data
+    date = event_form.date.data
+    date = str(date)
+    startTime = event_form.startTime.data
+    startTime = str(startTime)
+    endTime = event_form.endTime.data
+    endTime = str(endTime)
+    location = event_form.location.data
+    type = event_form.type.data
+    match type:
+         case 1: type = "Concert"
+         case 2: type = "DJ "
+         case 3: type = "Club Night"
+         case 4: type = "Disco"
+         case 5: type = "Classical"
+         case 6: type = "Music Festival"
+         case 7: type = "Gig"
+         case _: type = "Concert"
+    status = event_form.status.data
+    match status:
          case 1:
-            EventStatus = "Open"
-            StatusCode = "badge1"
+            status = "Open"
+            statusCode = "badge1"
          case 2:
-            EventStatus = "Cancelled"
-            StatusCode = "badge2"
+            status = "Cancelled"
+            statusCode = "badge2"
          case 3:
-            EventStatus = "Sold Out"
-            StatusCode = "badge3"
+            status = "Sold Out"
+            statusCode = "badge3"
          case 4:
-            EventStatus = "Inactive"
-            StatusCode = "badge4"
+            status = "Inactive"
+            statusCode = "badge4"
          case  _ :
-            EventStatus = "Inactive"
-            StatusCode = "badge4"
+            status = "Inactive"
+            statusCode = "badge4"
 
-    event = Event( EventTitle, EventDescription, EventImage, EventTicket, EventDate, EventStartTime, EventEndTime, EventLocation, EventType, EventStatus, StatusCode)
+    event = Event(title, description, image, price, date, startTime, endTime, location, type, status, statusCode)
     # add the object to the db session
     db.session.add(event)
     # commit to the database
@@ -119,7 +119,7 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     # add the foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('Event.id'))
 
     # string print method
     def __repr__(self):
