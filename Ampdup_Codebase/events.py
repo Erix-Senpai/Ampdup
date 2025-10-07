@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for
-from .models import Event, Comment
+from .models import Comment
+from .event_db import Event
 from .forms import CommentForm
 from . import db
 
@@ -8,7 +9,7 @@ eventsbp = Blueprint('event', __name__, url_prefix='/events')
 
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
-    event = db.session.scalar(db.select(Event).where(Event.id==id))           # Get the dummy event
+    event = db.session.scalar(db.select(Event).where(Event.eventUid==id))           # Get the dummy event
     form = CommentForm()          # Create the form instance
     
     if form.validate_on_submit():

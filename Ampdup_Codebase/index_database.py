@@ -11,6 +11,7 @@ def Populate_Event():
         encoded_image = base64.b64encode(image).decode("utf-8")
         image = f"data:image/png;base64,{encoded_image}"
         event_ = {
+            "eventUid": event.eventUid,
             "title": event.eventTitle,
             "description": event.eventDescription,
             "image": image,

@@ -11,6 +11,3 @@ def index():
 def BookingHistory():
     return render_template('BookingHistory.html', active_page='Check Booking')
 
-@mainbp.route('/Event_Details')
-def Event_Details():
-    return render_template('Event_Details.html')

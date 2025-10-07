@@ -1,3 +1,5 @@
+
+
 ## This is an example test.
 # This should later be injected into SQL, and inside index_database the link to Index_Populate_Event_1 should be switched to SQL db too.
 def Index_Populate_Event_1():
