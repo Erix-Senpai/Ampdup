@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="eventdetails-image">
-                            <img src={{event.image}} class="card-img-top" alt="...">
+                            <img src={{image}} class="card-img-top" alt="...">
                         </div> 
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                                     <path
                                         d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                                 </svg>
-                                <p>{{event.datetime}}</p>
+                                <p>{{event.date}}, {{event.startTime}} - {{event.endTime}}</p>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
                                     <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
                                     <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
                                 </svg>
-                                <p>{{event.cost}}</p>
+                                <p>AUD ${{event.price}}</p>
                             </div>
                         </div>
                     </div>

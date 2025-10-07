@@ -12,44 +12,44 @@
                 <form class="Create-Event-Page" action="{{ url_for('CreateEvent.Create_Event') }}" method="POST" enctype="multipart/form-data">
                     {{ event_form.hidden_tag()}}
                     <div class="mb-3">
-                        {{ event_form.EventTitle.label(class="form-label") }}
-                        {{ event_form.EventTitle(class="form-control", id="EventTitle", placeholder="Enter event title")}}
-                        {% for error in event_form.EventTitle.errors %}
+                        {{ event_form.title.label(class="form-label") }}
+                        {{ event_form.title(class="form-control", id="title", placeholder="Enter event title")}}
+                        {% for error in event_form.title.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
 
                     <!--Event Description form-->
                     <div class="mb-3">
-                        {{ event_form.EventDescription.label(class="form-label")}}
-                        {{ event_form.EventDescription(class="form-control", id="EventDescription", rows="3", placeholder="Enter event description")}}
-                        {% for error in event_form.EventDescription.errors %}
+                        {{ event_form.description.label(class="form-label")}}
+                        {{ event_form.description(class="form-control", id="description", rows="3", placeholder="Enter event description")}}
+                        {% for error in event_form.description.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}      
                     </div>
 
                     <!--Upload event image form-->
                     <div class="mb-3">
-                        {{ event_form.EventImage.label(class="form-label")}}
-                        {{ event_form.EventImage(class="form-control", id="EventImage")}}
-                        {% for error in event_form.EventImage.errors %}
+                        {{ event_form.image.label(class="form-label")}}
+                        {{ event_form.image(class="form-control", id="image")}}
+                        {% for error in event_form.image.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}       
                     </div>
                     <!--Upload event ticket form-->
                     <div class="mb-3">
-                        {{ event_form.EventTicket.label(class="form-label")}}
-                        {{ event_form.EventTicket(class="form-control", id="EventTicket", placeholder="$00.00")}}
-                        {% for error in event_form.EventTicket.errors %}
+                        {{ event_form.price.label(class="form-label")}}
+                        {{ event_form.price(class="form-control", id="price", placeholder="$00.00")}}
+                        {% for error in event_form.price.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
 
                     <!--Event date form-->
                     <div class="mb-3">
-                        {{ event_form.EventDate.label(class="form-label")}}
-                        {{ event_form.EventDate(class="form-control", id="EventDate")}}
-                        {% for error in event_form.EventDate.errors %}
+                        {{ event_form.date.label(class="form-label")}}
+                        {{ event_form.date(class="form-control", id="date")}}
+                        {% for error in event_form.date.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}    
                     </div>
@@ -57,9 +57,9 @@
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
-                                {{ event_form.EventStartTime.label(class="form-label")}}
-                                {{ event_form.EventStartTime(class="form-control", id="EventStartTime")}}
-                                {% for error in event_form.EventStartTime.errors %}
+                                {{ event_form.startTime.label(class="form-label")}}
+                                {{ event_form.startTime(class="form-control", id="startTime")}}
+                                {% for error in event_form.startTime.errors %}
                                 <div class="text-danger">{{ error }}</div>
                                 {% endfor %}    
                             </div>
@@ -68,9 +68,9 @@
                         <!--Event end time form-->
                         <div class="col">
                             <div class="mb-3">
-                                {{ event_form.EventEndTime.label(class="form-label")}}
-                                {{ event_form.EventEndTime(class="form-control", id="EventEndTime")}}
-                                {% for error in event_form.EventEndTime.errors %}
+                                {{ event_form.endTime.label(class="form-label")}}
+                                {{ event_form.endTime(class="form-control", id="endTime")}}
+                                {% for error in event_form.endTime.errors %}
                                 <div class="text-danger">{{ error }}</div>
                                 {% endfor %}
                             </div>
@@ -80,27 +80,27 @@
 
                     <!--Event location form-->
                     <div class="mb-3">
-                        {{ event_form.EventLocation.label(class="form-label")}}
-                        {{ event_form.EventLocation(class="form-control", id="EventLocation", placeholder="Enter event location")}}
-                        {% for error in event_form.EventLocation.errors %}
+                        {{ event_form.location.label(class="form-label")}}
+                        {{ event_form.location(class="form-control", id="location", placeholder="Enter event location")}}
+                        {% for error in event_form.location.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
 
                     <!--Event category type dropdown form-->
                     <div class="mb-3">
-                        {{ event_form.EventType.label(class="form-label")}}
-                        {{ event_form.EventType(class="form-select", id="EventType", placeholder="Select Event Type")}}
-                        {% for error in event_form.EventType.errors %}
+                        {{ event_form.type.label(class="form-label")}}
+                        {{ event_form.type(class="form-select", id="type", placeholder="Select Event Type")}}
+                        {% for error in event_form.type.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
 
                     <!--Event status dropdown form-->
                     <div class="mb-3">
-                        {{ event_form.EventStatus.label(class="form-label")}}
-                        {{ event_form.EventStatus(class="form-select", id="EventStatus", placeholder="Set Event Status")}}
-                        {% for error in event_form.EventStatus.errors %}
+                        {{ event_form.status.label(class="form-label")}}
+                        {{ event_form.status(class="form-select", id="status", placeholder="Set Event Status")}}
+                        {% for error in event_form.status.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
