@@ -49,3 +49,15 @@ def Index_Populate_Event_1():
             "status": "Inactive"
         }
     ]
+def Upload_Event():
+    return(
+        "DJ with Dave",
+        "BRISBANE GET READY! DJ with Dave is coming with some awesome beats. Let's get this party started!",
+        "static/img folder/dj event.jpg",
+        2026-5-6,
+        18-00,
+        23-30,
+        "Eatons Hill Hotel Grand Ballroom",
+        "Music Festival",
+        "Cancelled"
+        )
