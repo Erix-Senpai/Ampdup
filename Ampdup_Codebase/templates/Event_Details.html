@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="eventdetails-image">
-                            <img src="{{ url_for('static', filename='img folder/the weeknd.jpg') }}" class="card-img-top" alt="...">
+                            <img src="{{ event.image }}" class="card-img-top" alt="...">
                         </div> 
                     </div>
                 </div>
@@ -28,13 +28,8 @@
                         
                         <!--Event Title and Description-->
                         <div class="event-title-description">
-                            <h4> The Weeknd: After Hours Til Dawn Tour </h4>
-                            <p>Previously titled the 'After Hours Tour', this is the seventh concert tour by Canadian singer-songwriter
-                                The Weeknd.
-                                The Weeknd is bringing the 'After Hours Til Dawn Tour' to Brisbane's Suncorp Stadium. Experience his
-                                electrifying setlist
-                                with special guest Playboi Carti & special guest Mike Dean.
-                            </p>
+                            <h4> {{ event.name }} </h4>
+                            <p>  {{ event.description}} </p>
                         </div>
 
                         
@@ -47,7 +42,7 @@
                                     <path
                                         d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                                 </svg>
-                                <p> Sat, 18 October, 6:00pm - 8:30pm AEST</p>
+                                <p> Tday's Date or somethin </p>
                             </div>
                         </div>
 
