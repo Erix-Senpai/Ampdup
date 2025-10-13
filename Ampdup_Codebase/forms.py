@@ -53,7 +53,7 @@ class EventForm(FlaskForm):
     title = StringField("Event Title", validators=[InputRequired(message="Must have an event title.")])
     description = TextAreaField("Event Description", validators=[InputRequired(message="Must have a description of the event.")])
     image = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'jpeg', 'png'], message="File type must be .png, .jpeg or .jpg.")])
-    price = DecimalField("Entrance Fee", places=2, validators=[InputRequired(message="Price must be in the format: $1234.56"), AcceptedPriceField])
+    price = DecimalField("Entrance Fee ($)", places=2, validators=[InputRequired(message="Price must be in the format: $1234.56"), AcceptedPriceField])
     date = DateField("Event Date", format="%Y-%m-%d", validators=[InputRequired(message="Must have a starting date of event."), FutureDateOnly])
     startTime = TimeField("Event Start Time", format="%H:%M", default=time(0,0), validators=[DataRequired(message="Must have a starting time.")])
     endTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])
