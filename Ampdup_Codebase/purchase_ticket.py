@@ -13,6 +13,7 @@ def purchase_ticket(event_id):
         flash('Please log in to purchase tickets')
         return redirect(url_for('auth.login'))
     
+    #if user does not select at least one ticket
     ga_Ticket = int(request.form.get('GA_Ticket', 0))
     
     if ga_Ticket == '0':
