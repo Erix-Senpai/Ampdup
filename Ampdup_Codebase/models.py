@@ -3,15 +3,15 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
 
 class User(db.Model):
-    __tablename__ = 'users' # good practice to specify table name
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
-	# password should never stored in the DB, an encrypted password is stored
-	# the storage should be at least 255 chars long, depending on your hashing algorithm
-    password_hash = db.Column(db.String(255), nullable=False)
-    # relation to call user.comments and comment.created_by
-    comments = db.relationship('Comment', backref='user')
+    __tablename__   = 'Users'
+    id              = db.Column(db.Integer      ,  primary_key = True)
+    user_name       = db.Column(db.String(20)   ,  unique=False, nullable=False)
+    email           = db.Column(db.String(40)   ,  unique=False, nullable=False)
+    password        = db.Column(db.String(20)   ,  unique=False, nullable=False)
+    
+    # Relationships
+    comments        = db.relationship('Comment', backref='User')
+    bookings        = db.relationship('Booking', backref='User')
     
     # string print method
     def __repr__(self):
@@ -112,3 +112,15 @@ class Comment(db.Model):
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
+
+class Booking(db.Model):
+    __tablename__   = 'Bookings'
+    id              = db.Column(db.Integer, primary_key=True)       
+    
+    # Foreign Keys
+    user_id         = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    event_id        = db.Column(db.Integer, db.ForeignKey('Events.id'))
+
+    def __repr__(self):
+        str = f"EventID: {self.id}, Event Name: {self.name}"
+        return str

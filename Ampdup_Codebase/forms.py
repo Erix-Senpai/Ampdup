@@ -6,6 +6,8 @@ from wtforms.fields.datetime import TimeField, DateField
 from wtforms import SelectField, ValidationError, DecimalField
 from datetime import time
 from datetime import date
+from .models import User
+
 import re
 
 
@@ -18,15 +20,13 @@ class LoginForm(FlaskForm):
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired()])
-    email = StringField("Email Address", validators=[Email("Please enter a valid email")])
-    # linking two fields - password should be equal to data entered in confirm
-    password=PasswordField("Password", validators=[InputRequired(),
+    user_name   = StringField("User Name", validators=[InputRequired()])
+    email       = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    password    = PasswordField("Password", validators=[Length(6),InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
-    confirm = PasswordField("Confirm Password")
+    confirm     = PasswordField("Confirm Password")
+    submit      = SubmitField("Register")
 
-    # submit button
-    submit = SubmitField("Register")
 
 class EventForm(FlaskForm):
     def FutureDateOnly(form, fields):
