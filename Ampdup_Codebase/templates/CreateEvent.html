@@ -39,7 +39,7 @@
                     <!--Upload event ticket form-->
                     <div class="mb-3">
                         {{ event_form.price.label(class="form-label")}}
-                        {{ event_form.price(class="form-control", id="price", placeholder="$00.00")}}
+                        {{ event_form.price(class="form-control", id="price", placeholder="00.00")}}
                         {% for error in event_form.price.errors %}
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}

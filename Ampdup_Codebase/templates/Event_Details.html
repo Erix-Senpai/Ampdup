@@ -98,7 +98,7 @@
             <div class="container-fluid comment-section">
                 <h5>Comments</h5>                    
                 <div class="row border-bottom"> 
-                    <form method="POST" action="{{ url_for('event.event_details', id=1) }}" class="w-100">
+                    <form method="POST" action="{{ url_for('event.event_details', id=event.id) }}" class="w-100">
                         {{ form.hidden_tag() }}
                         {{ form.text(class="form-textarea", placeholder="Write your comment...") }}
                         {{ form.submit(class="form-button") }}
