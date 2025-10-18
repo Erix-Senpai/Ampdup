@@ -14,15 +14,15 @@ import re
 
 # creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
-    password=PasswordField("Password", validators=[InputRequired('Enter user password')])
+    name=StringField("User Name", validators=[InputRequired('Enter user name')])
+    password_hash=PasswordField("Password", validators=[InputRequired('Enter user password')])
     submit = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name   = StringField("User Name", validators=[InputRequired()])
-    email       = StringField("Email Address", validators=[Email("Please enter a valid email")])
-    password    = PasswordField("Password", validators=[Length(6),InputRequired(),
+    name   = StringField("User Name", validators=[InputRequired()])
+    emailid       = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    password_hash    = PasswordField("Password", validators=[Length(6),InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
     confirm     = PasswordField("Confirm Password")
     submit      = SubmitField("Register")

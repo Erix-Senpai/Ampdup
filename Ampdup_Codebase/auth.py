@@ -16,9 +16,9 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():  
-        user_name = loginForm.user_name.data
-        password = loginForm.password.data
-        session['user_name'] = loginForm.user_name.data
+        name = loginForm.name.data
+        password_hash = loginForm.password_hash.data
+        session['user_name'] = loginForm.name.data
         print('Successfully logged in')
         flash('You logged in successfully')
         return redirect(url_for('main.index'))

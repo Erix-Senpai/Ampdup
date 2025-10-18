@@ -11,13 +11,10 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    Bootstrap(app)
+    Bootstrap5(app)
     
     # A secret key for the session object
     app.secret_key = 'somerandomvalue'
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite'
-    db.init_app(app)
 
     app.config['SECRET_KEY'] = secrets.token_hex(16)
     
