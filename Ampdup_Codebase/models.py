@@ -40,6 +40,48 @@ class Event(db.Model):
 
     def __init__(self, title, description, image, price, date, startTime, endTime, location, etype, status, statusCode):
         self.title = title
+from . import db
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
+
+class User(db.Model):
+    __tablename__ = 'users' # good practice to specify table name
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    emailid = db.Column(db.String(100), index=True, nullable=False)
+	# password should never stored in the DB, an encrypted password is stored
+	# the storage should be at least 255 chars long, depending on your hashing algorithm
+    password_hash = db.Column(db.String(255), nullable=False)
+    # relation to call user.comments and comment.created_by
+    comments = db.relationship('Comment', backref='user')
+    
+    # string print method
+    def __repr__(self):
+        return f"Name: {self.name}"
+    
+
+class Event(db.Model):
+    __tablename__ = "Event"
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
+    image = Column(LargeBinary, nullable=False)
+    price = Column(Float, nullable=False)
+    date = Column(String, nullable=False)
+    startTime = Column(String, nullable=False)
+    endTime = Column(String, nullable=False)
+    location = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    status = Column(String, nullable=False)
+    statusCode = Column(String, nullable=False)
+
+    comments = db.relationship('Comment', backref='event')
+	
+    
+    # string print method
+
+    def __init__(self, title, description, image, price, date, startTime, endTime, location, etype, status, statusCode):
+        self.title = title
         self.description = description
         self.image = image
         self.price = price
@@ -123,4 +165,5 @@ class Comment(db.Model):
 
     # string print method
     def __repr__(self):
+        return f"Comment: {self.text}"
         return f"Comment: {self.text}"
