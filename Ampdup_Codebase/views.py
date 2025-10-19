@@ -29,23 +29,6 @@ def Event_Details():
 
 
 
-@mainbp.route('/register',methods=["GET","POST"])
-def register():
-    print('Method type: ', request.method)
-    form = RegisterForm()
-    if form.validate_on_submit():
-          
-        p   = User( name    = form.name.data, 
-                    emailid        = form.emailid.data, 
-                    password_hash     = form.password_hash.data)
-        
-        db.session.add(p)
-        db.session.commit()
-        print('Successful User Registration')
-        return redirect(url_for('main.index'))
-    return render_template('register/register.html',form=form)
-
-
 
 @mainbp.route('/<id>/comment',methods=["GET","POST"])
 def comment(id):
