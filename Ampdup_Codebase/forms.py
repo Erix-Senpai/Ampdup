@@ -14,13 +14,14 @@ import re
 
 # creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Please enter your user name')])
+    email = StringField("Email Address", validators=[InputRequired("Please enter a valid email")])
     password=PasswordField("Password", validators=[InputRequired('Please enter your password')])
     submit = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired("Please enter a user name")])
+    first_name=StringField("First Name", validators=[InputRequired("Please enter your first name")])
+    surname=StringField("Surname", validators=[InputRequired("Please enter your surname")])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
     phone_number = StringField("Phone Number", validators=[InputRequired("Please enter a phone number"), Regexp(r'^\+?\d{9,15}$', message="Please enter a valid phone number with 9-15 digits")])
     street_address = StringField("Street Address", validators=[InputRequired("Please enter a street address)")])
