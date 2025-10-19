@@ -1,9 +1,7 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
+from flask_login import LoginManager
 
 import secrets
 
@@ -34,6 +32,21 @@ def create_app():
 
     from . import auth
     app.register_blueprint(auth.auth_bp)
+
+    from . import purchase_ticket
+    app.register_blueprint(purchase_ticket.purchase_ticket_bp)
+
+
+    # initialise the login manager
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    # create a user loader function takes userid and returns User
+    from .models import User  # importing here to avoid circular references
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.scalar(db.select(User).where(User.id==user_id))
 
     return app
 
