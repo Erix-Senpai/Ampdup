@@ -11,7 +11,6 @@ from .models import User
 import re
 
 
-
 # creates the login information
 class LoginForm(FlaskForm):
     email = StringField("Email Address", validators=[InputRequired("Please enter a valid email")])
@@ -31,6 +30,48 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField("Confirm Password")
     # submit button
     submit = SubmitField("Register")
+
+class EventForm(FlaskForm):
+    def FutureDateOnly(form, fields):
+        if (fields.data):
+            CurrentDate = date.today()
+            if (fields.data <= CurrentDate):
+                raise ValidationError("Event date must be 1 day prior to the current date.")
+    def AcceptedPriceField(form, fields):
+        if (fields.data):
+            try:
+                value = fields.data
+                print(value)
+                if re.match(r"^\d+\.\d{2}$", str(value)):
+                    if (value < 0):
+                        raise ValidationError(message="Price must be a positive value.")
+                    if (int(value) > 1000000):
+                        raise ValidationError(message="Price is over the limit of AUD$1,000,000. Please contact support for ticket with sales over AUD$1,000,000.")
+                else:
+                    raise ValidationError(message="Price must be in the format: $1234.56")
+            except Exception:
+                raise ValidationError(message="Price must be in the format: $1234.56")
+                
+    title = StringField("Event Title", validators=[InputRequired(message="Must have an event title.")])
+    description = TextAreaField("Event Description", validators=[InputRequired(message="Must have a description of the event.")])
+    image = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'jpeg', 'png'], message="File type must be .png, .jpeg or .jpg.")])
+    price = DecimalField("Entrance Fee ($)", places=2, validators=[InputRequired(message="Price must be in the format: $1234.56"), AcceptedPriceField])
+    date = DateField("Event Date", format="%Y-%m-%d", validators=[InputRequired(message="Must have a starting date of event."), FutureDateOnly])
+    startTime = TimeField("Event Start Time", format="%H:%M", default=time(0,0), validators=[DataRequired(message="Must have a starting time.")])
+    endTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])
+    location = StringField("Event Location", validators=[InputRequired(message="Must have a location for the event.")])
+    type = SelectField("Event Type", choices=[(1, "Concert"),(2, "DJ Event"),(3, "Club Night"),(4, "Disco"),(5, "Classical"),(6, "Music Festival"),(7, "Gig")], coerce=int)
+    status = SelectField("Event Status", choices=[(1, "Open"), (2, "Cancelled"), (3, "Sold Out"), (4, "Inactive")], coerce=int)
+    
+
+# User comment
+class CommentForm(FlaskForm):
+  text = TextAreaField('Comment', [InputRequired()])
+
+
+
+
+
 
 class EventForm(FlaskForm):
     def FutureDateOnly(form, fields):

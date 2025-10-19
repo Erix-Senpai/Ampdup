@@ -1,8 +1,9 @@
 from . import db
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'Users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)

@@ -29,6 +29,7 @@ def Event_Details():
 
 
 
+
 @mainbp.route('/<id>/comment',methods=["GET","POST"])
 def comment(id):
     print('Method type: ', request.method)

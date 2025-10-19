@@ -20,7 +20,7 @@ def login():
         password = loginform.password.data
         user = db.session.scalar(db.select(User).where(User.email==email))
         if user is None:
-            error = 'Incorrect user name'
+            error = 'This email is not registered. Please register first.'
         elif not check_password_hash(user.password_hash, password): # takes the hash and cleartext password
             error = 'Incorrect password'
         if error is None:
