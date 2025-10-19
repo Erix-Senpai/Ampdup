@@ -17,6 +17,7 @@ auth_bp = Blueprint('auth', __name__)
 
 
 def login():
+<<<<<<< HEAD
     loginform = LoginForm()
     error = None
     if loginform.validate_on_submit():
@@ -38,6 +39,17 @@ def login():
 
 
 
+=======
+    loginForm = LoginForm()
+    if loginForm.validate_on_submit():  
+        name = loginForm.name.data
+        password_hash = loginForm.password_hash.data
+        session['user_name'] = loginForm.name.data
+        print('Successfully logged in')
+        flash('You logged in successfully')
+        return redirect(url_for('main.index'))
+    return render_template('user.html', form=loginForm,  heading='Login')
+>>>>>>> origin/main
 
 @auth_bp.route('/register', methods = ['GET', 'POST'])
 def register():

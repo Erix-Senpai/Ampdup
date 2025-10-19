@@ -6,6 +6,8 @@ from wtforms.fields.datetime import TimeField, DateField
 from wtforms import SelectField, ValidationError, DecimalField
 from datetime import time
 from datetime import date
+from .models import User
+
 import re
 
 

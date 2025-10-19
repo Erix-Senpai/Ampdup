@@ -8,12 +8,11 @@ import secrets
 db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    
-    Bootstrap5(app)
 
+    Bootstrap5(app)
+    
     # A secret key for the session object
     app.secret_key = 'somerandomvalue'
-
 
     app.config['SECRET_KEY'] = secrets.token_hex(16)
     

@@ -6,6 +6,7 @@ import base64
 
 eventsbp = Blueprint('event', __name__, url_prefix='/events')
 
+from Ampdup_Codebase import db
 
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
@@ -40,9 +41,10 @@ def get_event():
     event_dt = 'Sat, 18 October, 6:00pm - 8:30pm AEST'
     event = Event('The Weeknd: After Hours Til Dawn Tour', event_desc, image_loc, 'From $50', event_loc, event_dt)
 
-    # Add some dummy comments
-    event.set_comments(Comment("John Doe", "I'm so excited for this! I can't wait.", '2023-08-12 11:00:00'))
-    event.set_comments(Comment("Devashree Kadia", "The goat finally coming to Brisbane omg.", '2023-08-12 11:00:00'))
-    event.set_comments(Comment("Sally", "Free face masks!", '2023-08-12 11:00:00'))
+#     # Add some dummy comments
+#     event.set_comments(Comment("John Doe", "I'm so excited for this! I can't wait.", '2023-08-12 11:00:00'))
+#     event.set_comments(Comment("Devashree Kadia", "The goat finally coming to Brisbane omg.", '2023-08-12 11:00:00'))
+#     event.set_comments(Comment("Sally", "Free face masks!", '2023-08-12 11:00:00'))
+#     event.set_comments(Comment("Test", "Example", '2023-08-12 11:00:00'))
 
-    return event
+#     return event

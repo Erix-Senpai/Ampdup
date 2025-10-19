@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
 
 class User(db.Model):
-    __tablename__ = 'users' # good practice to specify table name
+    __tablename__ = 'Users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     email = db.Column(db.String(100), index=True, nullable=False)
@@ -20,7 +20,7 @@ class User(db.Model):
     
 
 class Event(db.Model):
-    __tablename__ = "Event"
+    __tablename__ = "Events"
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=False)
@@ -101,15 +101,28 @@ def upload_event(event_form):
 
 
 
+class Booking(db.Model):
+    __tablename__   = 'Bookings'
+    id              = db.Column(db.Integer, primary_key=True)       
+    
+    # Foreign Keys
+    user_id         = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    event_id        = db.Column(db.Integer, db.ForeignKey('Events.id'))
+
+    def __repr__(self):
+        str = f"EventID: {self.id}, Event Name: {self.name}"
+        return str
+
 class Comment(db.Model):
-    __tablename__ = 'comments'
+    __tablename__ = 'Comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
     # add the foreign key
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('Event.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('Events.id'))
 
     # string print method
     def __repr__(self):
+        return f"Comment: {self.text}"
         return f"Comment: {self.text}"
