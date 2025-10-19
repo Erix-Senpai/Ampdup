@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_bootstrap5 import Bootstrap
+from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -9,7 +9,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    Bootstrap(app)
+    Bootstrap5(app)
     
     # A secret key for the session object
     app.secret_key = 'somerandomvalue'
