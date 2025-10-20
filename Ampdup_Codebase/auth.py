@@ -13,12 +13,13 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/login', methods=['GET', 'POST'])
 
 # view function
+
 def login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():  
-        name = loginForm.name.data
+        email = loginForm.email.data
         password_hash = loginForm.password_hash.data
-        session['user_name'] = loginForm.name.data
+        session['user_name'] = loginForm.email.data
         print('Successfully logged in')
         flash('You logged in successfully')
         return redirect(url_for('main.index'))

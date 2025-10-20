@@ -5,8 +5,11 @@ from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
 class User(db.Model):
     __tablename__ = 'Users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
+    first_name = db.Column(db.String(50), index=True, unique=False, nullable=False)
+    surname = db.Column(db.String(50), index=True, unique=False, nullable=False)
+    email = db.Column(db.String(100), index=True, nullable=False)
+    phone_number = db.Column(db.String(15), index=True, unique=False, nullable=False)
+    street_address = db.Column(db.String(200), index=True, unique=False, nullable=False)
 	# password should never stored in the DB, an encrypted password is stored
 	# the storage should be at least 255 chars long, depending on your hashing algorithm
     password_hash = db.Column(db.String(255), nullable=False)
