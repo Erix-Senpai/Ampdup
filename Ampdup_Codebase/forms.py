@@ -69,13 +69,6 @@ class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
 
 
-
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Week14
 class EventForm(FlaskForm):
     def FutureDateOnly(form, fields):
         if (fields.data):
