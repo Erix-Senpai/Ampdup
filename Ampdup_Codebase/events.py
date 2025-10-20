@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for
 from .models import Event, Comment
 from .forms import CommentForm
 from . import db
+from flask_login import current_user
 import base64
 
 eventsbp = Blueprint('event', __name__, url_prefix='/events')
@@ -18,7 +19,7 @@ def event_details(id):
     if form.validate_on_submit():
         # read the comment from the form, associate the Comment's event field
         # with the event object from the above DB query
-        comment = Comment(text=form.text.data, event=event) 
+        comment = Comment(text=form.text.data, event=event, user=current_user) 
         # here the back-referencing works - comment.event is set
         # and the link is created
         db.session.add(comment) 

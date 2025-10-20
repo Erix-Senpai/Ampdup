@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .index_database import Populate_Event
-
+from flask_login import current_user
 # Registration
 from .models import User, Booking, Comment, Event
 from .forms import RegisterForm, CommentForm
@@ -55,7 +55,8 @@ def comment(id):
     if form.validate_on_submit():
 
         c   = Comment(  text  = form.text.data,
-                        event = event)
+                        event = event,
+                        user  = current_user)
         
         db.session.add(c)
         db.session.commit()

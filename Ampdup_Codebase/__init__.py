@@ -22,6 +22,8 @@ def create_app():
     db.init_app(app)
 
 
+
+    
     #add Blueprints
     from . import views
     app.register_blueprint(views.mainbp)
