@@ -3,6 +3,22 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
+
+<!-- flashes any messages to the user -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="container-fluid">
+    <div class="row mt-3 mb-3">
+        <div class="col-md-12">
+            {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
         <main>
             <!--Main Hero image for Event Details Page-->
             <div class="container EventDetailsImage">
@@ -14,14 +30,18 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--Event Status-->
-            <div class="container EventDetailsPage">
-                <div class="row">
-                    <div class="col-lg-12 col-xl-8 left-column">
-                        <div class="eventdetails-status">
-                            <p><span id="event-details-badge" class="badge rounded-pill text-bg-primary">Open</span></p>
-                        </div>
+        <!--Event Status-->
+        <div class="container EventDetailsPage">
+            <div class="row">
+                <div class="col-lg-12 col-xl-8 left-column">
+                    <div class="eventdetails-status">
+                        <p><span id="event-details-badge" class="badge rounded-pill text-bg-primary">Open</span></p>
+                    </div>
+                
+            
+            
                     
                 
                 
@@ -72,22 +92,35 @@
                         </div>
                     </div>
 
+                        
+                        
+                    <!--Event Location-->
+                    <div class="eventdetails-location">
+                        <div class="d-inline-flex align-items-center location-symbol">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                            </svg>
+                            <p> Suncorp Stadium, 40 Castlemaine St, Milton QLD 4064</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <!--Get Tickets button-->
-                    <div class="col-lg-12 col-xl-4 right-column">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-get-tickets">
-                                    <div class="card-body">
-                                        <div class="btn-box">
-                                            <button type="button" class="btn btn-primary btn-get-tickets" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                Get Tickets
-                                            </button>
-                                        </div>
+
+                <!--Get Tickets button-->
+                <div class="col-lg-12 col-xl-4 right-column">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-get-tickets">
+                                <div class="card-body">
+                                    <div class="btn-box">
+                                        <button type="button" class="btn btn-primary btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
+                                            Get Tickets
+                                        </button>
                                     </div>
                                 </div>
-                            </div>  
-                        </div>
+                            </div>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -174,6 +207,67 @@
                 </div>
             </div>    
         </div>
+
+
+
+        <!--Comment Section-->
+        <div class="container-fluid comment-section">
+            <h5>Comments</h5>                    
+            <div class="row border-bottom"> 
+                <form method="POST" action="{{ url_for('event.event_details', id=1) }}" class="w-100">
+                    {{ form.hidden_tag() }}
+                    {{ form.text(class="form-textarea", placeholder="Write your comment...") }}
+                    {{ form.submit(class="form-button") }}
+                </form>
+                {% for comment in event.comments %}
+                <div class="col-12 card-commenter">  
+                    <span class="p1">{{ comment.user }}</span>
+                    <span class="p2">{{ comment.created_at }}</span>
+                </div>
+                <div class="col-12 comment">
+                    <p>{{ comment.text }}</p>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>            
+    </main>
+
+
+
+    <!--Modal that pops up when user click on 'Get Ticket' button-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Book Your Tickets</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="Event-Page" action="{{ url_for('PurchaseTicket.purchase_ticket') }}" method="POST">
+                        <div class="row">
+                            <div>
+                                <label for="tickettype1" class="ticketlabel">General Admission</label>
+                                <div class="ticket-price">$ 120.00</div>
+                                <div class="ticket-details">Oct 18, 6:00pm AEST</div>
+                            </div>
+                            <select class="select-ticket-number" id="GA_Ticket" name="GA_Ticket">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="Submit" class="btn btn-primary" >Confirm Purchase</button>
+                </div>
+            </div>
+        </div>    
+    </div>
+
 
 
 

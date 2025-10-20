@@ -71,6 +71,11 @@ class CommentForm(FlaskForm):
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Week14
 class EventForm(FlaskForm):
     def FutureDateOnly(form, fields):
         if (fields.data):
