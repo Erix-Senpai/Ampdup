@@ -1,13 +1,14 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 from .models import Event, Comment
 from .forms import CommentForm
+from flask_login import login_required
 from . import db
 import base64
 
 eventsbp = Blueprint('event', __name__, url_prefix='/events')
 
 from Ampdup_Codebase import db
-
+@login_required
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
