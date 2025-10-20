@@ -1,14 +1,13 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from .models import Event, Comment
 from .forms import CommentForm
-from flask_login import login_required
+from flask_login import current_user
 from . import db
 import base64
 
 eventsbp = Blueprint('event', __name__, url_prefix='/events')
 
 from Ampdup_Codebase import db
-@login_required
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
@@ -17,6 +16,9 @@ def event_details(id):
     encoded_image = base64.b64encode(image).decode("utf-8")
     image = f"data:image/png;base64,{encoded_image}"
     if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash('Please log in to make a comment')
+            return redirect(url_for('auth.login'))  # Redirect to login if not authenticated
         # read the comment from the form, associate the Comment's event field
         # with the event object from the above DB query
         comment = Comment(text=form.text.data, event=event) 
