@@ -21,7 +21,7 @@ def event_details(id):
             return redirect(url_for('auth.login'))  # Redirect to login if not authenticated
         # read the comment from the form, associate the Comment's event field
         # with the event object from the above DB query
-        comment = Comment(text=form.text.data, event=event) 
+        comment = Comment(text=form.text.data, event=event, user=current_user) 
         # here the back-referencing works - comment.event is set
         # and the link is created
         db.session.add(comment) 

@@ -139,7 +139,7 @@
                     {% for comment in event.comments %}
                     <div class="col-12 card-commenter">  
                         <span class="p1">{{ comment.user }}</span>
-                        <span class="p2">{{ comment.created_at }}</span>
+                        <span class="p2">{{ comment.created_at.strftime('%H:%M, %d %b %Y') }}</span>
                     </div>
                     <div class="col-12 comment">
                         <p>{{ comment.text }}</p>

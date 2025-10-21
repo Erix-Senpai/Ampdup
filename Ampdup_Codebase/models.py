@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     
     # string print method
     def __repr__(self):
-        return f"Name: {self.first_name} {self.surname}"
+        return f"{self.first_name} {self.surname}"
     
 
 class Event(db.Model):
@@ -127,5 +127,4 @@ class Comment(db.Model):
 
     # string print method
     def __repr__(self):
-        return f"Comment: {self.text}"
         return f"Comment: {self.text}"
