@@ -48,3 +48,8 @@ def comment(id):
     return render_template('register/register.html',form=form)
 
 
+@mainbp.route('/trigger500')
+def trigger500():
+    # Force a runtime error
+    1 / 0
+    return "You’ll never see this"
