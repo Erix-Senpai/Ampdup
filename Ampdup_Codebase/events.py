@@ -1,6 +1,10 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from .models import Event, Comment
 from .forms import CommentForm
+from datetime import date, datetime
+
+# Get the current datetime object
+
 from flask_login import current_user
 from . import db
 import base64
@@ -13,6 +17,15 @@ def event_details(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     form = CommentForm()          # Create the form instance
     image = event.image
+    status = event.status
+
+    due_date = datetime.strptime(event.date, "%Y-%m-%d").date()
+    end_time = datetime.strptime(event.endTime, "%H:%M:%S").time()
+    if (due_date > date.today() and end_time > datetime.now().time() and event.status != 'Cancelled'):
+        event.status = 'Inactive'
+        event.statusCode = 'badge4'          
+        db.session.commit()  
+            # change active status
     encoded_image = base64.b64encode(image).decode("utf-8")
     image = f"data:image/png;base64,{encoded_image}"
     if form.validate_on_submit():
@@ -33,21 +46,4 @@ def event_details(id):
         return redirect(url_for('event.event_details', id=id))
 
     # Pass the form to the template
-    print(f"IMAGE : {image}")
     return render_template('Event_Details.html', event=event, form=form, image = image)
-
-def get_event():
-    event_desc = """Previously titled the 'After Hours Tour', this is the seventh concert tour by Canadian singer-songwriter
-                The Weeknd. The Weeknd is bringing the 'After Hours Til Dawn Tour' to Brisbane's Suncorp Stadium."""
-    image_loc = url_for('static', filename='img folder/the weeknd.jpg')
-    event_loc = 'Suncorp Stadium, 40 Castlemaine St, Milton QLD 4064'
-    event_dt = 'Sat, 18 October, 6:00pm - 8:30pm AEST'
-    event = Event('The Weeknd: After Hours Til Dawn Tour', event_desc, image_loc, 'From $50', event_loc, event_dt)
-
-#     # Add some dummy comments
-#     event.set_comments(Comment("John Doe", "I'm so excited for this! I can't wait.", '2023-08-12 11:00:00'))
-#     event.set_comments(Comment("Devashree Kadia", "The goat finally coming to Brisbane omg.", '2023-08-12 11:00:00'))
-#     event.set_comments(Comment("Sally", "Free face masks!", '2023-08-12 11:00:00'))
-#     event.set_comments(Comment("Test", "Example", '2023-08-12 11:00:00'))
-
-#     return event

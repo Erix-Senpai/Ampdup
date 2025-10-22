@@ -3,7 +3,7 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired, Regexp
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.fields.datetime import TimeField, DateField
-from wtforms import SelectField, ValidationError, DecimalField
+from wtforms import SelectField, ValidationError, DecimalField, IntegerField
 from datetime import time
 from datetime import date
 from .models import User
@@ -42,7 +42,6 @@ class EventForm(FlaskForm):
         if (fields.data):
             try:
                 value = fields.data
-                print(value)
                 if re.match(r"^\d+\.\d{2}$", str(value)):
                     if (value < 0):
                         raise ValidationError(message="Price must be a positive value.")
@@ -57,6 +56,7 @@ class EventForm(FlaskForm):
     description = TextAreaField("Event Description", validators=[InputRequired(message="Must have a description of the event.")])
     image = FileField("Event Image", validators= [FileRequired(message="Must upload an image."), FileAllowed(['jpg', 'jpeg', 'png'], message="File type must be .png, .jpeg or .jpg.")])
     price = DecimalField("Entrance Fee ($)", places=2, validators=[InputRequired(message="Price must be in the format: $1234.56"), AcceptedPriceField])
+    ticket = IntegerField("Tickets for Sale", validators=[InputRequired(message="Must have total number of tickets available for sale.")])
     date = DateField("Event Date", format="%Y-%m-%d", validators=[InputRequired(message="Must have a starting date of event."), FutureDateOnly])
     startTime = TimeField("Event Start Time", format="%H:%M", default=time(0,0), validators=[DataRequired(message="Must have a starting time.")])
     endTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])

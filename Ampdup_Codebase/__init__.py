@@ -36,6 +36,9 @@ def create_app():
     from . import purchase_ticket
     app.register_blueprint(purchase_ticket.purchase_ticket_bp)
 
+    from . import booking_history
+    app.register_blueprint(booking_history.booking_history_bp)
+
 
     # initialise the login manager
     login_manager = LoginManager()
