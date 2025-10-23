@@ -11,7 +11,7 @@ def Create_Event():
     event_form = EventForm()    #Call for form EventForm()
     if (event_form.validate_on_submit()):   #If Submitted Form is valid.
         upload_event(event_form)    #Upload_Event into database.
-        return redirect(url_for('main.BookingHistory'))     # Redirect to bookingHistory page, where they shiould see their event created.
+        return redirect(url_for('BookingHistory.Get_Booking'))     # Redirect to bookingHistory page, where they shiould see their event created.
     
     # Loads the page of Create Event.
     return render_template('CreateEvent.html', event_form=event_form, active_page='Create Event')

@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <p><span id="{% if event.status == 'Open' %}badge1{% elif event.status == 'Sold Out'%}badge2{% elif event.status == 'Cancelled'%}badge3{% else %}badge4{% endif %}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
+                                <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                                 <h5 class="card-title">{{event.title}} </h5>
                                 <p class="card-text">{{event.description}} </p>
                                     <div class="d-inline-flex align-items-center">
