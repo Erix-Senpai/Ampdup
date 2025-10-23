@@ -42,6 +42,7 @@ class Event(db.Model):
 
     comments = db.relationship('Comment', backref='event')
     owner_id = db.Column(db.Text, db.ForeignKey('Users.id'))
+    bookings = db.relationship('Booking', backref='event')
 	
     
     # string print method

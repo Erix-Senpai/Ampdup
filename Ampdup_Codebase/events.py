@@ -17,17 +17,17 @@ def event_details(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     form = CommentForm()          # Create the form instance
     image = event.image
-    status = event.status
+    encoded_image = base64.b64encode(image).decode("utf-8")
+    image = f"data:image/png;base64,{encoded_image}"
 
     due_date = datetime.strptime(event.date, "%Y-%m-%d").date()
     end_time = datetime.strptime(event.endTime, "%H:%M:%S").time()
-    if (due_date > date.today() and end_time > datetime.now().time() and event.status != 'Cancelled'):
+    if (due_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'):
+
         event.status = 'Inactive'
         event.statusCode = 'badge4'          
-        db.session.commit()  
-            # change active status
-    encoded_image = base64.b64encode(image).decode("utf-8")
-    image = f"data:image/png;base64,{encoded_image}"
+        db.session.commit()
+            # change active status"
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             flash('Please log in to make a comment')

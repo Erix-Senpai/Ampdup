@@ -5,75 +5,71 @@
         <main>
             <!--Cards for each event 'previously' booked-->
             <div class="container BookHistoryPage">
-                <div class="row">
-                    <h2>Last 7 Days</h2>
-                    <div class="card mb-3 bookingWrapper">
-                        <div class="row">
+                {% if your_event or booked_event %}
+                <div class="container">
+                    <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
+                    <h2>Your Event</h2>
+                    {% for event in your_event %}
+                    <div class="card mb-3">
+                        <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="static/img folder/the weeknd.jpg" class="img-fluid rounded-start" alt="...">
+                                <img src="{{ event.image }}" class="img-fluid" alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">The Weeknd: After Hours Til Dawn Tour</h5>
-                                    <p class="card-text">Booking ID: #167893</p>
-                                    <p class="card-text">Date Booked: 1 August 2026, 12:15 AM</p>
-                                    <p><span id="badge1" class="badge rounded-pill text-bg-primary">Open</span></p>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <h2>Over a month ago</h2>
-                    <div class="card mb-3 bookingWrapper">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="static/img folder/pianist.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Yuja Wang: Recital, Beethoven 'Moolight' Sonata</h5>
-                                    <p class="card-text">Booking ID: #119749</p>
-                                    <p class="card-text">Date Booked: 16 June 2025, 6:10 PM</p>
-                                    <p><span id="badge4" class="badge rounded-pill text-bg-primary">Inactive</span></p>
+                                    <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
+                                    <h5 class="card-title">{{event.title}} </h5>
+                                    <p class="card-text">{{event.description}} </p>
+                                        <div class="d-inline-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+                                                viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                            </svg>
+                                            <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
+                                        </div>
+                                        <div>
+                                            <a href="{{ url_for('event.event_details', id=event.id) }}" class="btn btn-primary stretched-link">View Details</a>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-            </div>
-            <div class="container">
-                <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
-                {% for event in Booking_History %}
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{ event.image }}" class="img-fluid" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p><span id="{% if event.status == 'Open' %}badge1{% elif event.status == 'Sold Out'%}badge2{% elif event.status == 'Cancelled'%}badge3{% else %}badge4{% endif %}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
-                                <h5 class="card-title">{{event.title}} </h5>
-                                <p class="card-text">{{event.description}} </p>
-                                    <div class="d-inline-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
-                                            viewBox="0 0 16 16">
-                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                                        </svg>
-                                        <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
-                                    </div>
-                                    <div>
-                                        <a href="{{ url_for('event.event_details', id=event.id) }}" class="btn btn-primary stretched-link">View Details</a>
-                                    </div>
+                <div class="container">
+                    <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
+                    <h2>Booked Events</h2>
+                    {% for event in booked_event %}
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ event.image }}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
+                                    <h5 class="card-title">{{event.title}} </h5>
+                                    <p class="card-text">{{event.description}} </p>
+                                        <div class="d-inline-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+                                                viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                            </svg>
+                                            <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
+                                        </div>
+                                        <div>
+                                            <a href="{{ url_for('event.event_details', id=event.id) }}" class="btn btn-primary stretched-link">View Details</a>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                {% else %}
+                <h2>No Booked Events Yet.</h2>
+                {% endif %}
             </div>
-            
         </main>
 
 

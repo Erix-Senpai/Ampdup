@@ -39,7 +39,7 @@
                                 <a class="nav-link {% if active_page == 'Create Event' %}active{% endif %}" href="{{ url_for('CreateEvent.Create_Event') }}">Create Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% if active_page == 'Check Booking' %}active{% endif %}" href="{{ url_for('main.BookingHistory') }}">Check Booking</a>
+                                <a class="nav-link {% if active_page == 'Check Booking' %}active{% endif %}" href="{{ url_for('BookingHistory.Get_Booking') }}">Check Booking</a>
                             </li>
                         </ul>
 
