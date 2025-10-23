@@ -15,6 +15,7 @@ eventsbp = Blueprint('event', __name__, url_prefix='/events')
 from Ampdup_Codebase import db
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
+    view_mode = request.args.get('mode', 'default')
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     form = CommentForm()   
     purchaseform = PurchaseForm()       # Create the form instance
@@ -45,7 +46,7 @@ def event_details(id):
         # flash('Your comment has been added', 'success')  
         print('Your comment has been added', 'success') 
         # using redirect sends a GET request to event.show
-        return redirect(url_for('event.event_details', id=id))
+        return redirect(url_for('event.event_details', id=id, view_mode = view_mode))
 
     # Pass the form to the template
-    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, image = image)
+    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, image = image, view_mode = view_mode)

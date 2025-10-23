@@ -58,3 +58,9 @@ def Get_Booking():
         }
         booked_event.append(booked_event__)
     return render_template('BookingHistory.html', booked_event=booked_event, your_event=your_event, active_page='Get_History')
+@login_required
+def booked_event_details(id):
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    return render_template('Event_Details.html', event=event, view_mode='booking')
+
+

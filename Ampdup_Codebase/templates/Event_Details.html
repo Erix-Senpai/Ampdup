@@ -117,14 +117,20 @@
                             <div class="card-get-tickets">
                                 <div class="card-body">
                                     <div class="btn-box">
-                                        {% if event.ticket_remain == 0 %}
-                                        <button type="button" class="btn btn-primary btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
-                                            Get Tickets
+                                        {% if view_mode == 'booking' %}
+                                        <button type="button" class="btn btn-danger btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
+                                            Cancel Booking
                                         </button>
                                         {% else %}
-                                        <button type="button" class="btn btn-primary btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
-                                            Get Tickets
-                                        </button>
+                                            {% if event.ticket is not number or event.ticket <= 0 %}
+                                            <button type="button" class="btn btn-primary btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
+                                                Get Tickets
+                                            </button>
+                                            {% else %}
+                                            <button type="button" class="btn btn-primary btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
+                                                Get Tickets
+                                            </button>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                     <p class="d-inline-flex align-items-center"> Ticket available: {{event.ticket_remain}}</p>
@@ -173,9 +179,12 @@
                     <div class="modal-body">
                         <label for="quantity" class="ticketlabel">Ticket Quantity</label>
                         <select class="form-select" id="quantity" name="quantity" required>
-                            {% for i in range(1, 11) %}
-                            <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
+                            {% if not event.ticket_remain %}
+                            {% else %}
+                                {% for i in range(1, event.ticket_remain + 1) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
                     </div>
 

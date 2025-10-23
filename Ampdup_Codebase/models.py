@@ -116,9 +116,11 @@ def upload_event(event_form):
 
 
 class Booking(db.Model):
-    __tablename__   = 'Bookings'
-    id              = db.Column(db.Integer, primary_key=True)       
-    
+    __tablename__ = 'Bookings'
+    id = db.Column(db.Integer, nullable = False, primary_key=True)
+    quantity = db.Column(db.Integer, nullable = False)     
+    order_date = db.Column(db.Text, nullable = False)
+
     # Foreign Keys
     user_id         = db.Column(db.Integer, db.ForeignKey('Users.id'))
     event_id        = db.Column(db.Integer, db.ForeignKey('Events.id'))
@@ -126,8 +128,6 @@ class Booking(db.Model):
     def __repr__(self):
         str = f"EventID: {self.id}, Event Name: {self.name}"
         return str
-
-
 
 class Comment(db.Model):
     __tablename__ = 'Comments'
@@ -141,16 +141,3 @@ class Comment(db.Model):
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
-    
-
-
-class Order(db.Model):
-    __tablename__ = 'Orders'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('Events.id'))
-    quantity = db.Column(db.Integer, nullable=False)
-    order_date = db.Column(db.DateTime, default=datetime.now())
-
-    event = db.relationship('Event', backref='orders')
-    user = db.relationship('User', backref='orders')
