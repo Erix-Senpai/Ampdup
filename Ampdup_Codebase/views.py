@@ -53,3 +53,16 @@ def trigger500():
     # Force a runtime error
     1 / 0
     return "You’ll never see this"
+
+
+
+#--Search Route
+@mainbp.route('/search')
+def search():
+    if request.args['search'] and request.args['search'] != "":
+        print(request.args['search'])
+        query = "%" + request.args['search'] + "%"
+        events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
+        return render_template('searchresults.html', events=events)
+    else:
+        return redirect(url_for('main.index'))

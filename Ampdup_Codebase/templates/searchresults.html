@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<main>
+    <!--Search Results Display-->
+
+    <div class="container">
+        <h3>Search Results</h3>
+        {% for event in events %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+
+                    <div class="container EventDetailsImage">
+                        <div class="row">
+                            <div class="col">
+                                <div class="eventdetails-image">
+                                    <img src={{event.image}} class="card-img-top" alt="event image">
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p><span id="{% if event.status == 'Open' %}badge1{% elif event.status == 'Sold Out'%}badge2{% elif event.status == 'Cancelled'%}badge3{% else %}badge4{% endif %}"
+                                class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
+                        <h5 class="card-title">{{event.title}} </h5>
+                        <p class="card-text">{{event.description}} </p>
+                        <div class="d-inline-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                            </svg>
+                            <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
+                        </div>
+                        <div>
+                            <a href="{{ url_for('event.event_details', id=event.id) }}"
+                                class="btn btn-primary stretched-link">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+
+{% endblock content %}
