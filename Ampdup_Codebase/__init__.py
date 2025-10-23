@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -36,6 +36,9 @@ def create_app():
     from . import purchase_ticket
     app.register_blueprint(purchase_ticket.purchase_ticket_bp)
 
+    from . import booking_history
+    app.register_blueprint(booking_history.booking_history_bp)
+
 
     # initialise the login manager
     login_manager = LoginManager()
@@ -47,6 +50,17 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return db.session.scalar(db.select(User).where(User.id==user_id))
+
+    @app.errorhandler(404) 
+    # inbuilt function which takes error as parameter 
+    def not_found(e): 
+      return render_template("404.html", error=e)
+        
+    @app.errorhandler(500) 
+    # inbuilt function which takes error as parameter 
+    def internal_error(e): 
+      return render_template("500.html", error=e)
+
 
     return app
 

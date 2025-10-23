@@ -1,7 +1,8 @@
 from . import db
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Float, LargeBinary
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'Users' # good practice to specify table name
@@ -19,7 +20,7 @@ class User(db.Model, UserMixin):
     
     # string print method
     def __repr__(self):
-        return f"Name: {self.first_name} {self.surname}"
+        return f"{self.first_name} {self.surname}"
     
 
 class Event(db.Model):
@@ -29,6 +30,8 @@ class Event(db.Model):
     description = Column(Text, nullable=False)
     image = Column(LargeBinary, nullable=False)
     price = Column(Float, nullable=False)
+    ticket = Column(Integer, nullable=True)
+    ticket_remain = Column(Integer, nullable=True)
     date = Column(String, nullable=False)
     startTime = Column(String, nullable=False)
     endTime = Column(String, nullable=False)
@@ -38,15 +41,18 @@ class Event(db.Model):
     statusCode = Column(String, nullable=False)
 
     comments = db.relationship('Comment', backref='event')
+    owner_id = db.Column(db.Text, db.ForeignKey('Users.id'))
 	
     
     # string print method
 
-    def __init__(self, title, description, image, price, date, startTime, endTime, location, etype, status, statusCode):
+    def __init__(self, title, description, image, price, ticket, ticket_remain, date, startTime, endTime, location, etype, status, statusCode, owner_id):
         self.title = title
         self.description = description
         self.image = image
         self.price = price
+        self.ticket = ticket
+        self.ticket_remain = ticket_remain
         self.date = date
         self.startTime = startTime
         self.endTime = endTime
@@ -54,6 +60,8 @@ class Event(db.Model):
         self.type = etype
         self.status = status
         self.statusCode = statusCode
+        self.owner_id = owner_id
+
 
 def upload_event(event_form):
     title = event_form.title.data
@@ -61,6 +69,8 @@ def upload_event(event_form):
     image = event_form.image.data
     image = image.read()
     price = event_form.price.data
+    ticket = event_form.ticket.data
+    ticket_remain = ticket
     date = event_form.date.data
     date = str(date)
     startTime = event_form.startTime.data
@@ -95,8 +105,8 @@ def upload_event(event_form):
          case  _ :
             status = "Inactive"
             statusCode = "badge4"
-
-    event = Event(title, description, image, price, date, startTime, endTime, location, type, status, statusCode)
+    owner_id = current_user.id
+    event = Event(title, description, image, price, ticket, ticket_remain, date, startTime, endTime, location, type, status, statusCode, owner_id)
     # add the object to the db session
     db.session.add(event)
     # commit to the database
@@ -130,7 +140,6 @@ class Comment(db.Model):
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
-        return f"Comment: {self.text}"
     
 
 
@@ -144,6 +153,3 @@ class Order(db.Model):
 
     event = db.relationship('Event', backref='orders')
     user = db.relationship('User', backref='orders')
-
-
-

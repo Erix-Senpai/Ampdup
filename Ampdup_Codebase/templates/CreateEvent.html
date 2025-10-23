@@ -44,6 +44,15 @@
                         <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
+                
+                    <!-- Total available ticket form-->
+                    <div class="mb-3">
+                        {{ event_form.ticket.label(class="form-label")}}
+                        {{ event_form.ticket(class="form-control", id="ticket", placeholder="Enter total available ticket for sale.")}}
+                        {% for error in event_form.ticket.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
 
                     <!--Event date form-->
                     <div class="mb-3">
