@@ -116,6 +116,8 @@ class Booking(db.Model):
         str = f"EventID: {self.id}, Event Name: {self.name}"
         return str
 
+
+
 class Comment(db.Model):
     __tablename__ = 'Comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -129,3 +131,19 @@ class Comment(db.Model):
     def __repr__(self):
         return f"Comment: {self.text}"
         return f"Comment: {self.text}"
+    
+
+
+class Order(db.Model):
+    __tablename__ = 'Orders'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('Events.id'))
+    quantity = db.Column(db.Integer, nullable=False)
+    order_date = db.Column(db.DateTime, default=datetime.now())
+
+    event = db.relationship('Event', backref='orders')
+    user = db.relationship('User', backref='orders')
+
+
+

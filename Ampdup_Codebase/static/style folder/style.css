@@ -464,21 +464,35 @@ h4 {
     padding-bottom: 0rem;
 }
 
-
-.ticketlabel {
+.modal-title {
     font-family: "Nunito", Helvetica, sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0px;
+    font-size: 2rem;
+    font-weight: 1000;
     color: #b22222;
 }
 
 
-.row select {
+.modal-header { 
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticketlabel {
+    font-family: "Nunito", Helvetica, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-right: 10rem;
+    margin-left: 3rem
+}
+
+
+.form-select {
     min-width: 60px;
     max-height: 40px;
     text-align: center;
     margin-top: 20px;
+    margin-right: 2rem;
     border-radius: 6px;
 }
 

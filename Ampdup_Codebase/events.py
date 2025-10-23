@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from .models import Event, Comment
-from .forms import CommentForm
+from .forms import CommentForm, PurchaseForm
 from flask_login import current_user
 from . import db
 import base64
@@ -11,7 +11,8 @@ from Ampdup_Codebase import db
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
-    form = CommentForm()          # Create the form instance
+    form = CommentForm()   
+    purchaseform = PurchaseForm()       # Create the form instance
     image = event.image
     encoded_image = base64.b64encode(image).decode("utf-8")
     image = f"data:image/png;base64,{encoded_image}"
@@ -34,7 +35,7 @@ def event_details(id):
 
     # Pass the form to the template
     print(f"IMAGE : {image}")
-    return render_template('Event_Details.html', event=event, form=form, image = image)
+    return render_template('Event_Details.html', event=event, form=form, purchaseform=purchaseform, image = image)
 
 def get_event():
     event_desc = """Previously titled the 'After Hours Tour', this is the seventh concert tour by Canadian singer-songwriter

@@ -36,7 +36,6 @@ def login():
 def register():
     registerform = RegisterForm()
     if registerform.validate_on_submit():
-        flash('Successfully registered')
         first_name = registerform.first_name.data
         surname = registerform.surname.data
         email = registerform.email.data

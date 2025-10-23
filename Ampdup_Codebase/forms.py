@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, FileField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired, Regexp
+from wtforms.validators import InputRequired, Length, Email, EqualTo, DataRequired, Regexp, NumberRange
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.fields.datetime import TimeField, DateField
-from wtforms import SelectField, ValidationError, DecimalField
+from wtforms import SelectField, ValidationError, DecimalField, IntegerField
 from datetime import time
 from datetime import date
 from .models import User
@@ -69,3 +69,8 @@ class EventForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Post')
+
+
+
+class PurchaseForm(FlaskForm):
+    submit = SubmitField("Confirm Purchase")

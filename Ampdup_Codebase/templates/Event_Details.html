@@ -94,17 +94,6 @@
 
                         
                         
-                    <!--Event Location-->
-                    <div class="eventdetails-location">
-                        <div class="d-inline-flex align-items-center location-symbol">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                            </svg>
-                            <p> Suncorp Stadium, 40 Castlemaine St, Milton QLD 4064</p>
-                        </div>
-                    </div>
-                </div>
 
 
                 <!--Get Tickets button-->
@@ -148,6 +137,41 @@
                 </div>
             </div>            
         </main>
+
+
+  <!--Modal that pops up when user click on 'Get Ticket' button-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">GET TICKETS</h1>
+                </div>
+
+
+
+
+                <form class="Event-Page" action="{{ url_for('PurchaseTicket.purchase_ticket', event_id=event.id) }}" method="POST">
+                    {{ purchaseform.hidden_tag() }}
+                    <div class="modal-body">
+                        <label for="quantity" class="ticketlabel">Ticket Quantity</label>
+                        <select class="form-select" id="quantity" name="quantity" required>
+                            {% for i in range(1, 11) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        {{ purchaseform.submit(class="btn btn-primary", value="Confirm Purchase") }}
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+
+
+
 
 
 {% endblock content %}
