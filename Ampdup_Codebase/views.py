@@ -46,7 +46,7 @@ def trigger500():
     return "You’ll never see this"
 
 
-
+import base64
 #--Search Route
 @mainbp.route('/search')
 def search():
@@ -54,6 +54,15 @@ def search():
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
-        return render_template('searchresults.html', events=events)
+        
+        newevents = list()
+        for event in events:
+            image = event.image
+            encoded_image = base64.b64encode(image).decode("utf-8")
+            image = f"data:image/png;base64,{encoded_image}"
+            event.image = image
+            newevents.append(event)
+
+        return render_template('searchresults.html', events=newevents)
     else:
         return redirect(url_for('main.index'))
