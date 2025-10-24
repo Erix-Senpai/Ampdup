@@ -47,11 +47,38 @@ def trigger500():
 
 
 import base64
+import sqlalchemy
 #--Search Route
 @mainbp.route('/search')
 def search():
     if request.args['search'] and request.args['search'] != "":
         print(request.args['search'])
+        query = "%" + request.args['search'] + "%"
+        events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
+        
+        newevents = list()
+        for event in events:
+            image = event.image
+            encoded_image = base64.b64encode(image).decode("utf-8")
+            image = f"data:image/png;base64,{encoded_image}"
+            event.image = image
+            newevents.append(event)
+            
+        if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+        else:   
+            return render_template('nosearchresults.html')
+        
+    else:
+        return redirect(url_for('main.index'))
+    
+    
+
+#--Sort Route
+@mainbp.route('/sort')
+def sort():
+    if request.args['sort'] and request.args['sort'] != "":
+        print(request.args['sort'])
         query = "%" + request.args['search'] + "%"
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
         
