@@ -71,6 +71,9 @@ class CommentForm(FlaskForm):
   submit = SubmitField('Post')
 
 
+class Cancellation_form(FlaskForm):
+    submit = SubmitField("Cancel Form")
+
 
 class PurchaseForm(FlaskForm):
     submit = SubmitField("Confirm Purchase")
