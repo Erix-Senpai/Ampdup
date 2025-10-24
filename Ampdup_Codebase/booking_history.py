@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
-from .forms import EventForm
+from .forms import EventForm, Cancellation_form
 from .models import upload_event
 from . import db
 import base64
@@ -13,6 +13,7 @@ booking_history_bp = Blueprint('BookingHistory', __name__, url_prefix="/Booking_
 @booking_history_bp.route('/', methods=['GET', 'POST'])
 @login_required
 def Get_Booking():
+    cancellation_form = Cancellation_form()
     your_event_ = Event.query.filter_by(owner_id=current_user.id).all()
     your_event = []
     for event in your_event_:
@@ -57,10 +58,6 @@ def Get_Booking():
             "owner_id": event.owner_id
         }
         booked_event.append(booked_event__)
-    return render_template('BookingHistory.html', booked_event=booked_event, your_event=your_event, active_page='Get_History')
-@login_required
-def booked_event_details(id):
-    event = db.session.scalar(db.select(Event).where(Event.id == id))
-    return render_template('Event_Details.html', event=event, view_mode='booking')
+    return render_template('BookingHistory.html', booked_event=booked_event, cancellation_form = cancellation_form, your_event=your_event, active_page='Get_History')
 
 
