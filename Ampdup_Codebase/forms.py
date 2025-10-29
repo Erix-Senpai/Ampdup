@@ -71,7 +71,7 @@ class CommentForm(FlaskForm):
   submit = SubmitField('Post')
 
 
-class Cancellation_form(FlaskForm):
+class CancelBookingForm(FlaskForm):
     submit = SubmitField("Cancel Form")
 
 
