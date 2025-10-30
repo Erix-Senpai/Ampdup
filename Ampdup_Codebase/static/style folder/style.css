@@ -682,3 +682,24 @@ h1 {
 }
 
 
+/* Make footer stick to bottom */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* full viewport height */
+}
+
+/* The main content should grow to fill space between header and footer */
+main {
+    flex: 1;
+}
+
+/* Push footer to bottom */
+footer {
+    margin-top: auto;
+}
