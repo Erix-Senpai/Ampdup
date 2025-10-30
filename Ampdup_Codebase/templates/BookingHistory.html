@@ -8,7 +8,7 @@
                 {% if your_event or booked_event %}
                 <div class="container">
                     <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
-                    <h2>Your Event</h2>
+                    <h2>Your Events</h2>
                     {% for event in your_event %}
                     <div class="card mb-3">
                         <div class="row g-0">
@@ -28,7 +28,7 @@
                                             <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
                                         </div>
                                         <div>
-                                            <a href="{{ url_for('event.event_details', id=event.id, view_mode = 'booking') }}" class="btn btn-primary stretched-link">View Details</a>
+                                            <a href="{{ url_for('event.event_details', id=event.id, view_mode = 'past_booking') }}" class="btn btn-primary stretched-link">View Details</a>
                                         </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                             <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
                                         </div>
                                         <div>
-                                            <a href="{{ url_for('event.event_details', id=event.id, view_mode = 'booking') }}" class="btn btn-primary stretched-link">View Details</a>
+                                            <a href="{{ url_for('event.event_details', id=event.id, view_mode = 'past_booking') }}" class="btn btn-primary stretched-link">View Details</a>
                                         </div>
                                 </div>
                             </div>

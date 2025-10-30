@@ -117,7 +117,7 @@
                             <div class="card-get-tickets">
                                 <div class="card-body">
                                     <div class="btn-box">
-                                        {% if view_mode == 'booking' %}
+                                        {% if view_mode == 'past_booking' %}
                                         <button type="button" class="btn btn-danger btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
                                             Cancel Booking
                                         </button>
@@ -166,8 +166,27 @@
             </div>            
         </main>
 
+    {% if view_mode == 'past_booking' %}
+    <!--Modal that pops up when user click on 'Get Ticket' button-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cancel Booking</h1>
+                </div>
+                <form class="Event-Page" action="{{ url_for('BookingHistory.Get_Booking') }}" method="POST">
+                    {{ cancellation_form.hidden_tag() }}                
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        {{ cancellation_form.submit(class="btn btn-danger", value="Cancel Booking") }}
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+    {% else %}
 
-  <!--Modal that pops up when user click on 'Get Ticket' button-->
+    <!--Modal that pops up when user click on 'Get Ticket' button-->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -194,7 +213,8 @@
                     </div>
                 </form>
             </div>
-        </div>    
+        </div>
+        {% endif %}
     </div>
 
 
