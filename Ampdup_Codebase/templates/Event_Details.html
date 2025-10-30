@@ -133,7 +133,6 @@
                                             {% endif %}
                                         {% endif %}
                                     </div>
-                                    <p class="d-inline-flex align-items-center"> Ticket available: {{event.ticket_remain}}</p>
                                 </div>
                             </div>
                         </div>  
@@ -197,14 +196,13 @@
                     {{ purchaseform.hidden_tag() }}
                     <div class="modal-body">
                         <label for="quantity" class="ticketlabel">Ticket Quantity</label>
-                        <select class="form-select" id="quantity" name="quantity" required>
-                            {% if not event.ticket_remain %}
-                            {% else %}
-                                {% for i in range(1, event.ticket_remain + 1) %}
-                                <option value="{{ i }}">{{ i }}</option>
-                                {% endfor %}
-                            {% endif %}
-                        </select>
+                        <div class="modal-ticket-row">
+                            <p class="modal-ticket-price"> Price: ${{ event.price }}</p>
+                            <div class = "ticket-quantity-input">
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ event.ticket_remain }}" value="1" required>
+                            </div> 
+                        </div>
+                        <small class="modal-tickets-available"> Available Tickets: {{ event.ticket_remain }} </small>         
                     </div>
 
                     <div class="modal-footer">
