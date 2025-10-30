@@ -18,21 +18,46 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
+                                <h5 class="card-title"> Event ID:{{event.event_id}} </h5>
+                                <p class="card-text"><small class="text-body-secondary">Ticket remain: {{event.ticket_remain}} / {{event.ticket}} </small></p>
+                                <hr>
                                 <h5 class="card-title">{{event.title}} </h5>
                                 <p class="card-text">{{event.description}} </p>
-                                    <div class="d-inline-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
-                                            viewBox="0 0 16 16">
-                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                                        </svg>
-                                        <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
-                                    </div>
-                                    <div>
-                                        <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary stretched-link">View Details</a>
-                                    </div>
+                                <div class="d-inline-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+                                        viewBox="0 0 16 16">
+                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                    </svg>
+                                    <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
+                                    {% if event.Status == "Open" %}
+                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    {% else %}
+                                    <a type="button" class="btn btn-danger" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <!--Modal that pops up when user click on 'Cancel Event' button-->
+                <div class="modal fade" id="cancelEvent-{{event.event_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelEventLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="cancelEventModal">Cancel Event</h1>
+                            </div>
+                            <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', event_id = event.event_id) }}" method="POST">
+                                {{ cancelBookingForm.hidden_tag() }}                
+                                <div class="modal-body modal-dialog-centered">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    {{ cancelBookingForm.submit(class="btn btn-danger", value="Cancel Event") }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
                 </div>
                 {% endfor %}
             </div>
@@ -49,7 +74,7 @@
                             <div class="card-body">
                                 <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                                 <h5 class="card-title">Booking ID:{{event.booking_id}} </h5>
-                                <p class="card-text"><small class="text-body-secondary">Ticket Booked: {{event.quantity}} </small></p>
+                                <p class="card-text"><small class="text-body-secondary">Ticket remain: {{event.ticket_remain}} / {{event.ticket}}</small></p>
                                 <hr>
                                 <h5 class="card-title">{{event.title}} </h5>
                                 <p class="card-text">Description: {{event.description}} </p>

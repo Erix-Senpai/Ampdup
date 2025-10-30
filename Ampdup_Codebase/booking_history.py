@@ -43,14 +43,15 @@ def return_event_query(query: Query):
             "description": events.description,
             "image": image,
             "price": events.price,
+            "ticket": events.ticket,
+            "ticket_remain": events.ticket_remain,
             "date": events.date,
             "startTime": events.startTime,
             "endTime": events.endTime,
             "location": events.location,
             "type": events.type,
             "status": events.status,
-            "statusCode": events.statusCode,
-            "owner_id": events.owner_id
+            "statusCode": events.statusCode
         }
         event_list.append(e_list)
 

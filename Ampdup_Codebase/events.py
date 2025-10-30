@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from .models import Event, Comment
-from .forms import CommentForm, PurchaseForm, CancelBookingForm
+from .forms import CommentForm, PurchaseForm, CancelBookingForm, CancelEventForm
 from datetime import date, datetime
 
 # Get the current datetime object
@@ -19,6 +19,7 @@ def event_details(id):
     form = CommentForm()   
     purchaseform = PurchaseForm()       # Create the form instance
     cancelBookingForm = CancelBookingForm()
+    cancelEventForm = CancelEventForm()
     image = event.image
     encoded_image = base64.b64encode(image).decode("utf-8")
     image = f"data:image/png;base64,{encoded_image}"
@@ -49,4 +50,4 @@ def event_details(id):
         return redirect(url_for('event.event_details', id=id, view_mode = view_mode))
 
     # Pass the form to the template
-    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, cancelBookingForm = cancelBookingForm, image = image, view_mode = view_mode)
+    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, image = image, view_mode = view_mode)
