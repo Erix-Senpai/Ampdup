@@ -65,15 +65,17 @@ class EventForm(FlaskForm):
     status = SelectField("Event Status", choices=[(1, "Open"), (2, "Cancelled"), (3, "Sold Out"), (4, "Inactive")], coerce=int)
     
 
-# User comment
+# User comment form
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Post')
 
 
-class Cancellation_form(FlaskForm):
+class CancelBookingForm(FlaskForm):
     submit = SubmitField("Cancel Form")
 
+class CancelEventForm(FlaskForm):
+    submit = SubmitField("Cancel Event")
 
 class PurchaseForm(FlaskForm):
     submit = SubmitField("Confirm Purchase")

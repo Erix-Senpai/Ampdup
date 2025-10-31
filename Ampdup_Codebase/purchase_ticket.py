@@ -9,6 +9,7 @@ purchase_ticket_bp = Blueprint('PurchaseTicket', __name__)
 
 
 @purchase_ticket_bp.route('/<int:event_id>', methods=['POST'])
+@login_required
 def purchase_ticket(event_id):
     if not current_user.is_authenticated:
         flash('Please log in to purchase tickets')

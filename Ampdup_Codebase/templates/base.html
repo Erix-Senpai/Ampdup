@@ -20,7 +20,7 @@
 
 
 
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <header>      
             <!--Navbar-->
             <nav class="navbar navbar-expand-md bg-body-tertiary">
@@ -94,24 +94,23 @@
 {% endif %}
 {% endwith %}
         
-
+<main class="flex-grow-1">
 {% block content %}
 
 
 {% endblock %}
+</main>
 
-        <footer>
-            <div class="container bg-body-secondary">
-                <footer class="py-3 my-4 ampdupFooter">
-                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Venues</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Support</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                    </ul>
-                    <p class="text-center text-body-secondary">© 2025 AmpdUP, Inc</p>
-                </footer>
+        <footer class="bg-body-secondary py-3 mt-auto ampdupFooter">
+            <div class="container">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Venues</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Support</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                </ul>
+                <p class="text-center text-body-secondary">© 2025 AmpdUP, Inc</p>
             </div>
         </footer>
 
