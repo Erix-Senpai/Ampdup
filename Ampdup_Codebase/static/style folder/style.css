@@ -64,7 +64,6 @@
 
 
 
-
 .search-wrapper {
     flex-grow: 1;
     position: relative;
@@ -103,8 +102,34 @@
     white-space: nowrap;
 }
 
+
+.register-btn {
+    justify-self: right;
+    max-width: 75px;
+    margin-left: 8px;
+    
+}
+
+.register-btn .btn {
+    background-color: #2169b2;
+    color: #ffffff;
+    font-family: "Nunito", Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+
+.navbar-collapse .login-btn,
+.navbar-collapse .register-btn {
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
 @media (max-width: 768px) {
-    .login-btn {
+    .login-btn,
+    .register-btn {
         margin-left: 0;
         margin-top: 0.5rem;
         justify-self: center;
