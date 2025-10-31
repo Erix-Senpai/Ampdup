@@ -5,8 +5,7 @@ from .index_database import Populate_Event
 from .models import User, Booking, Comment, Event
 from .forms import RegisterForm, CommentForm
 from Ampdup_Codebase import db
-from return_query import return_event_query
-import requests
+from .return_query import return_event_query
 
 mainbp = Blueprint('main', __name__ , template_folder='../templates')
 
@@ -61,7 +60,10 @@ def search():
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
         newevents = return_event_query(events)
             
-        check_search_result(newevents)
+        if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+        else:   
+            return render_template('nosearchresults.html')
         
     else:
         return redirect(url_for('main.index'))
@@ -72,9 +74,13 @@ def search():
 @mainbp.route('/sort')
 def sort():
     if request.args['sort'] and request.args['sort'] != "":
-        evsort = sort(request)
+        sort_type = sort(request.args.get('sort'))
+        evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(sort_type)) 
         newevents = return_event_query(evsort)
-        check_search_result(newevents)
+        if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+        else:   
+            return render_template('nosearchresults.html')
     
     else:
         return redirect(url_for('main.index'))
@@ -89,19 +95,16 @@ def typefilter():
         events = db.session.scalars( db.select(Event).where( (Event.type.like(query)) ) )
         
         newevents = return_event_query(events)
-        check_search_result(newevents)
+        if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+        else:   
+            return render_template('nosearchresults.html')
     else:
         return redirect(url_for('main.index'))
     
 
-def check_search_result(newevents: list):
-    if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
-    else:   
-        return render_template('nosearchresults.html')
-    
-def sort(Request: requests):
-    sort_type = {
+def sort(sort_key: str):
+    sort_map = {
         "id_asc": asc(Event.id),
         "id_desc": desc(Event.id),
         "name_asc": asc(Event.title),
@@ -110,4 +113,4 @@ def sort(Request: requests):
         "date_desc": desc(Event.date),
         "": asc(Event.id)
     }
-    return sort_type
+    return sort_map.get(sort_key, asc(Event.id))

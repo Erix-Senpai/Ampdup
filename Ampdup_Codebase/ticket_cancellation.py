@@ -9,6 +9,7 @@ cancel_booking_bp = Blueprint('CancelBooking', __name__, url_prefix='/Cancel_Boo
 
 
 @cancel_booking_bp.route('/cancel_booking', methods=['POST', 'GET'])
+@login_required
 def cancel_booking(booking_id):
     event_id = request.args.get('event_id', 'none')
     booking_id = request.args.get('booking_id', 'none')
