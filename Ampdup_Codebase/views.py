@@ -5,6 +5,8 @@ from .index_database import Populate_Event
 from .models import User, Booking, Comment, Event
 from .forms import RegisterForm, CommentForm
 from Ampdup_Codebase import db
+from return_query import return_event_query
+import requests
 
 mainbp = Blueprint('main', __name__ , template_folder='../templates')
 
@@ -57,19 +59,9 @@ def search():
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
-        
-        newevents = list()
-        for event in events:
-            image = event.image
-            encoded_image = base64.b64encode(image).decode("utf-8")
-            image = f"data:image/png;base64,{encoded_image}"
-            event.image = image
-            newevents.append(event)
+        newevents = return_event_query(events)
             
-        if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
-        else:   
-            return render_template('nosearchresults.html')
+        check_search_result(newevents)
         
     else:
         return redirect(url_for('main.index'))
@@ -80,49 +72,12 @@ def search():
 @mainbp.route('/sort')
 def sort():
     if request.args['sort'] and request.args['sort'] != "":
-        if "id_asc" in request.args['sort']:
-            #   Ascending ID
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.id)) ) 
-            
-        elif 'id_desc' in request.args['sort']:
-            #   Descending ID
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.id))  )
-            
-        elif 'name_asc' in request.args['sort']:
-            #   Ascending Title
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.title))  )
-            
-        elif 'name_desc' in request.args['sort']:
-            #   Descending Title
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.title))  )
-            
-        elif 'date_asc' in request.args['sort']:
-            #   Ascending Date
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.date))  )
-            
-        elif 'date_desc' in request.args['sort']:
-            #   Descending Date
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.date))  )
-            
-        else:
-            #   Default (Ascending ID Sort)
-            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.id))  )
-            
-        
-        newevents = list()
-        for event in evsort:
-            image = event.image
-            encoded_image = base64.b64encode(image).decode("utf-8")
-            image = f"data:image/png;base64,{encoded_image}"
-            event.image = image
-            newevents.append(event)
-
-        return render_template('searchresults.html', events=newevents)
+        evsort = sort(request)
+        newevents = return_event_query(evsort)
+        check_search_result(newevents)
     
     else:
         return redirect(url_for('main.index'))
-
-
 
 #--Type Filter Route
 @mainbp.route('/typefilter')
@@ -133,18 +88,26 @@ def typefilter():
         query = "%" + request.args['search'] + "%"
         events = db.session.scalars( db.select(Event).where( (Event.type.like(query)) ) )
         
-        newevents = list()
-        for event in events:
-            image = event.image
-            encoded_image = base64.b64encode(image).decode("utf-8")
-            image = f"data:image/png;base64,{encoded_image}"
-            event.image = image
-            newevents.append(event)
-            
-        if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
-        else:   
-            return render_template('nosearchresults.html')
-        
+        newevents = return_event_query(events)
+        check_search_result(newevents)
     else:
         return redirect(url_for('main.index'))
+    
+
+def check_search_result(newevents: list):
+    if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+    else:   
+        return render_template('nosearchresults.html')
+    
+def sort(Request: requests):
+    sort_type = {
+        "id_asc": asc(Event.id),
+        "id_desc": desc(Event.id),
+        "name_asc": asc(Event.title),
+        "name_desc": desc(Event.title),
+        "date_asc": asc(Event.date),
+        "date_desc": desc(Event.date),
+        "": asc(Event.id)
+    }
+    return sort_type
