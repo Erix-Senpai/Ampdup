@@ -48,6 +48,8 @@ def trigger500():
 
 import base64
 import sqlalchemy
+from sqlalchemy import desc, asc
+
 #--Search Route
 @mainbp.route('/search')
 def search():
@@ -72,15 +74,64 @@ def search():
     else:
         return redirect(url_for('main.index'))
     
-    
-
+  
+  
 #--Sort Route
 @mainbp.route('/sort')
 def sort():
     if request.args['sort'] and request.args['sort'] != "":
-        print(request.args['sort'])
+        if "id_asc" in request.args['sort']:
+            #   Ascending ID
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.id)) ) 
+            
+        elif 'id_desc' in request.args['sort']:
+            #   Descending ID
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.id))  )
+            
+        elif 'name_asc' in request.args['sort']:
+            #   Ascending Title
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.title))  )
+            
+        elif 'name_desc' in request.args['sort']:
+            #   Descending Title
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.title))  )
+            
+        elif 'date_asc' in request.args['sort']:
+            #   Ascending Date
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.date))  )
+            
+        elif 'date_desc' in request.args['sort']:
+            #   Descending Date
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(desc(Event.date))  )
+            
+        else:
+            #   Default (Ascending ID Sort)
+            evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(asc(Event.id))  )
+            
+        
+        newevents = list()
+        for event in evsort:
+            image = event.image
+            encoded_image = base64.b64encode(image).decode("utf-8")
+            image = f"data:image/png;base64,{encoded_image}"
+            event.image = image
+            newevents.append(event)
+
+        return render_template('searchresults.html', events=newevents)
+    
+    else:
+        return redirect(url_for('main.index'))
+
+
+
+#--Type Filter Route
+@mainbp.route('/typefilter')
+def typefilter():
+    if request.args['search'] and request.args['search'] != "":
+        
+        print(request.args['search'])
         query = "%" + request.args['search'] + "%"
-        events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
+        events = db.session.scalars( db.select(Event).where( (Event.type.like(query)) ) )
         
         newevents = list()
         for event in events:
@@ -89,7 +140,11 @@ def sort():
             image = f"data:image/png;base64,{encoded_image}"
             event.image = image
             newevents.append(event)
-
-        return render_template('searchresults.html', events=newevents)
+            
+        if (newevents.__len__() > 0):
+            return render_template('searchresults.html', events=newevents)
+        else:   
+            return render_template('nosearchresults.html')
+        
     else:
         return redirect(url_for('main.index'))

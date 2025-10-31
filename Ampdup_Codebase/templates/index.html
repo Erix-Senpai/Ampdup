@@ -19,96 +19,140 @@
             <!--Cards of different music event categories-->
             <div class="container-fluid Event-Categories">
                 <h2>Browse by Categories</h2>
-                <div class="row">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image1 - live concert.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Live Concerts</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>                  
+
+                <form class="flex" action="{{url_for('main.typefilter')}}">
+                    <div class="row">
+
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Concert">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image1 - live concert.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Live Concerts</h5>
+                                    </div>                  
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-                    
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image2 - gig.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Gigs</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Gig">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image2 - gig.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Gigs</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image3 - disco nights.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Disco Nights</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Disco">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image3 - disco nights.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Disco Nights</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image4 - DJ.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">DJ Events</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="DJ">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image4 - DJ.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">DJ Events</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image5 - classical performance.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Classical</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Classical">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image5 - classical performance.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Classical</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image6 - musical.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Musicals</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Club Night">
+                                <div class="card category-card">
+                                    <img src="static/img folder/disco.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Club Night</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
 
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg">
-                        <div class="card category-card">
-                            <img src="static/img folder/category image7 - festival.jpg" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title category-name">Festival</h5>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg">
+                            <button class="btn btn-outline-light btn-lg p-0" type="submit" name="search" value="Music Festival">
+                                <div class="card category-card">
+                                    <img src="static/img folder/category image7 - festival.jpg" class="card-img-top" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title category-name">Festival</h5>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                    </div>
-                </div>    
+
+                    </div>  
+                </form>
+
             </div>
 
 
 
             <!--Browsing popular events, each card is a different event-->
             <div class="container">
-                <h3>Popular</h3>
+
+                <div class="row">
+
+                    <div class="col-4 mt-3 mb-3" style="justify-self: center;">
+                        <h3>Popular Events</h3>        
+                    </div>
+
+                    <div class="col-8">
+                        <!--Sort Event Listings by...-->
+                        <form class="flex mt-5 mb-2" style="vertical-align: bottom;" action="{{url_for('main.sort') }}">
+                            <div class="row">
+                                <div class="col-8">
+
+                                    <select 
+                                    class="form-control" 
+                                    name="sort" 
+                                    id="sort" 
+                                    aria-label="sortselect" 
+                                    style="border-radius: 1;">
+                                        <option hidden>Sort By...</option>
+                                        <option value="id_asc" {{'selected' if sort=='id_asc' else ''}}>Event ID &uarr; (Default)</option>
+                                        <option value="id_desc" {{'selected' if sort=='id_desc' else ''}}>Event ID &darr;</option>
+                                        <option value="name_asc" {{'selected' if sort=='name_asc' else ''}}>Event Name &uarr;</option>
+                                        <option value="name_desc" {{'selected' if sort=='name_desc' else ''}}>Event Name &darr;</option>
+                                        <option value="date_asc" {{'selected' if sort=='date_asc' else ''}}>Event Date &uarr;</option>
+                                        <option value="date_desc" {{'selected' if sort=='date_desc' else ''}}>Event Date &darr;</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-4">
+                                    <button 
+                                    class="px-3 py-1 rounded-pill btn-outline-light" 
+                                    style="vertical-align: bottom; border-color: rgb(168, 168, 168); color: rgb(101, 101, 101);">      
+                                        Apply
+                                    </button>  
+                                </div>
+                            </div>
+
+                        </form>  
+                    </div>   
+
+                </div>
+
+
                 <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
                 {% for event in events %}
                 <div class="card mb-3">
