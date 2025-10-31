@@ -31,15 +31,15 @@ def comment(id):
         c   = Comment(  text  = form.text.data,
                         event = event)
         
-        db.session.add(c)
-        db.session.commit()
+        db.session.add(c) # add comment to session
+        db.session.commit() # write to database
         
         print('Successful Comment Post')
         return redirect(url_for('main.index'))
     return render_template('register/register.html',form=form)
 
 
-@mainbp.route('/trigger500')
+@mainbp.route('/trigger500') #Creat a route to trigger a 500 error
 def trigger500():
     # Force a runtime error
     1 / 0

@@ -14,18 +14,18 @@ eventsbp = Blueprint('event', __name__, url_prefix='/events')
 from Ampdup_Codebase import db
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
-    view_mode = request.args.get('view_mode', 'default')
-    event = db.session.scalar(db.select(Event).where(Event.id==id))
-    form = CommentForm()   
-    purchaseform = PurchaseForm()       # Create the form instance
-    cancellation_form = Cancellation_form()
-    image = event.image
-    encoded_image = base64.b64encode(image).decode("utf-8")
-    image = f"data:image/png;base64,{encoded_image}"
+    view_mode = request.args.get('view_mode', 'default') # Get view mode from query parameters, default to 'default'
+    event = db.session.scalar(db.select(Event).where(Event.id==id)) # Query the event by ID
+    form = CommentForm()   # Create comment form
+    purchaseform = PurchaseForm()       # Create purchase form
+    cancellation_form = Cancellation_form() #create cancellation form
+    image = event.image #get image from database
+    encoded_image = base64.b64encode(image).decode("utf-8") #encode image to base64
+    image = f"data:image/png;base64,{encoded_image}" #prepare image for display
 
-    due_date = datetime.strptime(event.date, "%Y-%m-%d").date()
-    end_time = datetime.strptime(event.endTime, "%H:%M:%S").time()
-    if (due_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'):
+    due_date = datetime.strptime(event.date, "%Y-%m-%d").date() #convert string to date object
+    end_time = datetime.strptime(event.endTime, "%H:%M:%S").time() #convert string to time object
+    if (due_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'): #check if event date has passed to change status to inactive
 
         event.status = 'Inactive'
         event.statusCode = 'badge4'          
