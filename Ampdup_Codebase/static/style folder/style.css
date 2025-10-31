@@ -424,7 +424,7 @@ h4 {
     font-size: 1.1rem;
 }
 
-.card-get-tickets .btn-box {
+.card-tickets .btn-box {
     height: 100%;
     display: flex;
     align-items: center;
@@ -432,8 +432,7 @@ h4 {
 }
 
 
-
-.card-body button.btn-get-tickets {
+.card-body button.btn-event-styling {
     display: flex;
     width: 100%;
     margin: 0 auto;
@@ -447,7 +446,7 @@ h4 {
     font-weight: 900;
 }
 
-.card-get-tickets {
+.card-tickets {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     width: 300px;
     height: 120px;
