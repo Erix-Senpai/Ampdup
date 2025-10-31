@@ -98,9 +98,11 @@
                                             Cancel Event
                                         </button>
                                         {% else %}
-                                        <button type="button" class="btn btn-danger btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
-                                            Cancel Event
-                                        </button>
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cannot cancel event as the event is {{event.status}}.">
+                                            <button type="button" class="btn btn-danger btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
+                                                Cancel Event
+                                            </button>
+                                        </span>
                                         {% endif %}
 
                                     </div>
@@ -118,9 +120,17 @@
                                 <div class="card-body">
                                     <div class="btn-box">
                                         {% if view_mode == 'past_booking' %}
-                                        <button type="button" class="btn btn-danger btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
+                                            {% if event.status != 'Inactive' and event.status != 'Cancelled' %}
+                                            <button type="button" class="btn btn-danger btn-get-tickets" data-toggle="modal" data-target="#staticBackdrop">
                                             Cancel Booking
-                                        </button>
+                                            </button>
+                                            {% else %}
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cannot cancel booking as the event is {{event.status}}.">
+                                                <button type="button" class="btn btn-danger btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
+                                                    Cancel Booking
+                                                </button>
+                                            </span>
+                                            {% endif %}
                                         {% else %}
                                             {% if event.ticket is not number or event.ticket <= 0 %}
                                             <button type="button" class="btn btn-primary btn-get-tickets" disabled data-toggle="modal" data-target="#staticBackdrop">
@@ -133,6 +143,7 @@
                                             {% endif %}
                                         {% endif %}
                                     </div>
+                                    <p class="d-inline-flex align-items-center"> Ticket remain: {{event.ticket_remain}} / {{event.ticket}}</p>
                                 </div>
                             </div>
                         </div>  
@@ -166,7 +177,7 @@
         </main>
 
     {% if view_mode == 'past_booking' %}
-    <!--Modal that pops up when user click on 'Get Ticket' button-->
+    <!--Modal that pops up when user click on 'Cancel Booking' button-->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -174,10 +185,10 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cancel Booking</h1>
                 </div>
                 <form class="Event-Page" action="{{ url_for('BookingHistory.Get_Booking') }}" method="POST">
-                    {{ cancellation_form.hidden_tag() }}                
-                    <div class="modal-body">
+                    {{ cancelBookingForm.hidden_tag() }}                
+                    <div class="modal-body modal-dialog-centered">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        {{ cancellation_form.submit(class="btn btn-danger", value="Cancel Booking") }}
+                        {{ cancelBookingForm.submit(class="btn btn-danger", value="Cancel Booking") }}
                     </div>
                 </form>
             </div>

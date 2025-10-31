@@ -1,5 +1,6 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
-from .forms import EventForm, Cancellation_form
+from .forms import EventForm, CancelBookingForm
+from sqlalchemy.orm import Query
 from .models import upload_event
 from . import db
 import base64
@@ -13,51 +14,46 @@ booking_history_bp = Blueprint('BookingHistory', __name__, url_prefix="/Booking_
 @booking_history_bp.route('/', methods=['GET', 'POST'])
 @login_required
 def Get_Booking():
-    cancellation_form = Cancellation_form()
-    your_event_ = Event.query.filter_by(owner_id=current_user.id).all()
-    your_event = []
-    for event in your_event_:
-        image = event.image
-        encoded_image = base64.b64encode(image).decode("utf-8")
-        image = f"data:image/png;base64,{encoded_image}"
-        your_event__ = {
-            "id": event.id,
-            "title": event.title,
-            "description": event.description,
-            "image": image,
-            "price": event.price,
-            "date": event.date,
-            "startTime": event.startTime,
-            "endTime": event.endTime,
-            "location": event.location,
-            "type": event.type,
-            "status": event.status,
-            "statusCode": event.statusCode,
-            "owner_id": event.owner_id
-        }
-        your_event.append(your_event__)
-    booked_event_ = Event.query.join(Booking, Booking.event_id == Event.id).filter(Booking.user_id == current_user.id).all()
-    booked_event = []
-    for event in booked_event_:
-        image = event.image
-        encoded_image = base64.b64encode(image).decode("utf-8")
-        image = f"data:image/png;base64,{encoded_image}"
-        booked_event__ = {
-            "id": event.id,
-            "title": event.title,
-            "description": event.description,
-            "image": image,
-            "price": event.price,
-            "date": event.date,
-            "startTime": event.startTime,
-            "endTime": event.endTime,
-            "location": event.location,
-            "type": event.type,
-            "status": event.status,
-            "statusCode": event.statusCode,
-            "owner_id": event.owner_id
-        }
-        booked_event.append(booked_event__)
-    return render_template('BookingHistory.html', booked_event=booked_event, cancellation_form = cancellation_form, your_event=your_event, active_page='Get_History')
+    cancelBookingForm = CancelBookingForm()
 
+    your_event_query = (db.session.query(Booking, Event).join(Event, Booking.event_id == Event.id).filter(Event.owner_id == current_user.id).all())
+    your_event = return_event_query(your_event_query)
+    
+
+    booked_event_query = (db.session.query(Booking, Event).join(Event, Booking.event_id == Event.id).filter(Booking.user_id == current_user.id).all())
+    booked_event = return_event_query(booked_event_query)
+
+    return render_template('BookingHistory.html', booked_event=booked_event, cancelBookingForm = cancelBookingForm, your_event=your_event, active_page='Get_History', view_mode = 'past_booking')
+
+
+
+
+def return_event_query(query: Query):
+    event_list = []
+    for bookings, events in query:
+        image = events.image
+        encoded_image = base64.b64encode(image).decode("utf-8")
+        image = f"data:image/png;base64,{encoded_image}"
+        e_list = {
+            "booking_id": bookings.id,
+            "event_id": events.id,
+            "quantity": bookings.quantity,
+            "order_date": bookings.order_date,
+            "title": events.title,
+            "description": events.description,
+            "image": image,
+            "price": events.price,
+            "ticket": events.ticket,
+            "ticket_remain": events.ticket_remain,
+            "date": events.date,
+            "startTime": events.startTime,
+            "endTime": events.endTime,
+            "location": events.location,
+            "type": events.type,
+            "status": events.status,
+            "statusCode": events.statusCode
+        }
+        event_list.append(e_list)
+
+    return event_list
 
