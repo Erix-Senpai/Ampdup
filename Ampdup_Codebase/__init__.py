@@ -39,6 +39,9 @@ def create_app():
     from . import booking_history
     app.register_blueprint(booking_history.booking_history_bp)
 
+    from . import ticket_cancellation
+    app.register_blueprint(ticket_cancellation.cancel_booking_bp)
+
 
     # initialise the login manager
     login_manager = LoginManager()
