@@ -250,7 +250,7 @@ h3 {
 }
 
 
-.card img {
+.card .img-fluid {
     height: 300px;
     width: 100%;
     object-fit: cover;
