@@ -25,20 +25,21 @@
                 <div class="row">
                     <div class="col">
                         <div class="eventdetails-image">
-                            <img src={{image}} class="card-img-top" alt="...">
+                            <img src={{event.image}} class="card-img-top" alt="...">
                         </div> 
                     </div>
                 </div>
             </div>
         </div>
-
+        <!--Container for Status, Event, Booking-->
         <!--Event Status-->
         <div class="container EventDetailsPage">
             <div class="row">
                 <div class="col-lg-12 col-xl-4 left-column">
+                    <!--event.status to determine the current event's status, as well as statuscode to display current status's colour. -->
                     <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                 </div>
-                <!--Cancel Event Button-->
+                <!--Cancel Event Button, limited to authenticated user & event creator/owner-->
                 <div class="col-lg-12 col-xl-4 center-column">
                     <div class="row">
                         <div class="col">
@@ -51,6 +52,7 @@
                                             Cancel Event
                                         </button>
                                         {% else %}
+                                        <!--disable event cancellation if inactive or already cancelled.-->
                                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cannot cancel event as the event is {{event.status}}.">
                                             <button type="button" class="btn btn-danger btn-event-styling" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">
                                                 Cancel Event
@@ -65,6 +67,7 @@
                         </div>  
                     </div>
                 </div>
+                <!--Booking button, switch to Cancel Booking if already booked.-->
                 <div class="col-lg-12 col-xl-4 right-column">
                     <div class="row">
                         <div class="col">
@@ -73,6 +76,7 @@
                                     <div class="btn-box">
                                         {% if view_mode == 'past_booking' %}
                                             {% if event.status != 'Inactive' and event.status != 'Cancelled' %}
+                                            <!--Cancel Booking if booked.-->
                                             <button type="button" class="btn btn-danger btn-event-styling" data-toggle="modal" data-target="#cancelBooking-{{event.booking_id}}">
                                                 Cancel Booking
                                             </button>
@@ -83,6 +87,7 @@
                                                 </button>
                                             </span>
                                             {% endif %}
+                                            <!--Else, button switches to 'Get Ticket'-->
                                         {% else %}
                                             {% if event.ticket is not number or event.ticket <= 0 %}
                                             <button type="button" class="btn btn-primary btn-event-styling" disabled data-toggle="modal" data-target="#getTicket">
@@ -95,6 +100,7 @@
                                             {% endif %}
                                         {% endif %}
                                     </div>
+                                    <!--Display tickets remaining for purchase out of all available ticket.-->
                                     <p class="d-inline-flex align-items-center"> Ticket remain: {{event.ticket_remain}} / {{event.ticket}}</p>
                                 </div>
                             </div>
@@ -104,6 +110,7 @@
             </div>
         </div>
 
+        <!--Event Details Container-->
         <div class="container EventDetailsPage">
             <div class="row">
                 <div class="col-lg-12 col-xl-12">
@@ -207,7 +214,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">GET TICKETS</h1>
                 </div>
-                <form class="Event-Page" action="{{ url_for('PurchaseTicket.purchase_ticket', event_id=event.id) }}" method="POST">
+                <form class="Event-Page" action="{{ url_for('PurchaseTicket.purchase_ticket', event_id=event.event_id) }}" method="POST">
                     {{ purchaseform.hidden_tag() }}
                     <div class="modal-body">
                         <label for="quantity" class="ticketlabel">Ticket Quantity</label>

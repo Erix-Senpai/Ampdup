@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .index_database import Populate_Event
 
 # Registration
 from .models import User, Booking, Comment, Event
@@ -13,14 +12,9 @@ mainbp = Blueprint('main', __name__ , template_folder='../templates')
 
 @mainbp.route('/')
 def index():
-    events = Populate_Event()
+    query = Event.query.all()
+    events = return_event_query(query)
     return render_template('index.html', events = events, active_page='Home')
-
-
-@mainbp.route('/Event_Details')
-def Event_Details():
-    return render_template('Event_Details.html')
-
 
 @mainbp.route('/<id>/comment',methods=["GET","POST"])
 def comment(id):
@@ -40,13 +34,16 @@ def comment(id):
     return render_template('register/register.html',form=form)
 
 
-@mainbp.route('/trigger500') #Creat a route to trigger a 500 error
+@mainbp.route('/trigger500') #Create a route to trigger a 500 error
 def trigger500():
     # Force a runtime error
     1 / 0
     return "You’ll never see this"
 
 
+#
+# Searching, Sorting, and Filtering:
+#
 import base64
 import sqlalchemy
 from sqlalchemy import desc, asc
@@ -85,7 +82,8 @@ def sort():
     else:
         return redirect(url_for('main.index'))
 
-#--Type Filter Route
+
+#--Filter by Event Type (Type Filter) Route
 @mainbp.route('/typefilter')
 def typefilter():
     if request.args['search'] and request.args['search'] != "":
@@ -103,6 +101,7 @@ def typefilter():
         return redirect(url_for('main.index'))
     
 
+#--Event Sorting Method
 def sort(sort_key: str):
     sort_map = {
         "id_asc": asc(Event.id),

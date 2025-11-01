@@ -20,6 +20,7 @@
             <div class="container-fluid Event-Categories">
                 <h2>Browse by Categories</h2>
 
+                <!--One-Click Event Filtering by Event Type/Genre-->
                 <form class="flex" action="{{url_for('main.typefilter')}}">
                     <div class="row">
 
@@ -121,7 +122,7 @@
                         <form class="flex mt-5 mb-2" style="vertical-align: bottom;" action="{{url_for('main.sort') }}">
                             <div class="row">
                                 <div class="col-8">
-
+                                    <!--Bootstrap Select (Dropdown) for choosing method of event sorting-->
                                     <select 
                                     class="form-control" 
                                     name="sort" 
@@ -139,6 +140,7 @@
                                 </div>
 
                                 <div class="col-4">
+                                    <!--Event Sorting Method Confirmation and Application-->
                                     <button 
                                     class="px-3 py-1 rounded-pill btn-outline-light" 
                                     style="vertical-align: bottom; border-color: rgb(168, 168, 168); color: rgb(101, 101, 101);">      
@@ -173,7 +175,7 @@
                                         <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
                                     </div>
                                     <div>
-                                        <a href="{{ url_for('event.event_details', id=event.id, view_mode = 'default') }}" class="btn btn-primary stretched-link">View Details</a>
+                                        <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'default') }}" class="btn btn-primary stretched-link">View Details</a>
                                     </div>
                             </div>
                         </div>
