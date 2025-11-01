@@ -11,21 +11,21 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 
-# view function
+# login function
 def login():
-    loginform = LoginForm()
-    error = None
+    loginform = LoginForm() # create login form instance
+    error = None 
     if loginform.validate_on_submit():
-        email = loginform.email.data
-        password = loginform.password.data
-        user = db.session.scalar(db.select(User).where(User.email==email))
-        if user is None:
-            error = 'This email is not registered. Please register first.'
-        elif not check_password_hash(user.password_hash, password): # takes the hash and cleartext password
+        email = loginform.email.data # get email from the login form
+        password = loginform.password.data # get password from the login form
+        user = db.session.scalar(db.select(User).where(User.email==email)) # query the database for the user with the provided email
+        if user is None: 
+            error = 'This email is not registered. Please register first.' 
+        elif not check_password_hash(user.password_hash, password): #check if the provided password matches the stored hashed password
             error = 'Incorrect password'
         if error is None:
             login_user(user)
-            return redirect(url_for('main.index'))
+            return redirect(url_for('main.index')) # redirect to the main index page upon successful login
         else:
             flash(error)
     return render_template('user.html', form=loginform,  heading='Login')
@@ -34,7 +34,7 @@ def login():
 
 @auth_bp.route('/register', methods = ['GET', 'POST'])
 def register():
-    registerform = RegisterForm()
+    registerform = RegisterForm() # create register form instance
     if registerform.validate_on_submit():
         first_name = registerform.first_name.data
         surname = registerform.surname.data
@@ -44,10 +44,10 @@ def register():
         password = registerform.password.data
         
         # create a hashed password
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password) # hash the password so it's securely stored in the database
 
 
-        #if user already exists
+        #if user already exists, warning is flashed to user
         existing_user = db.session.scalar(db.select(User).where(User.email==email))
         if existing_user:
             flash('A user with that email already exists. Please log in.')
@@ -67,6 +67,7 @@ def register():
         flash('You have successfully registered! Please log in.')
         return redirect(url_for('auth.login'))
     
+    # if there are validation errors, flash them to the user
     else:
         if registerform.errors:
             for err_msg in registerform.errors.values():
@@ -75,7 +76,7 @@ def register():
     return render_template('user.html', form=registerform, heading='Register')
 
 
-
+# Logout route
 @auth_bp.route('/logout')
 @login_required
 def logout():
