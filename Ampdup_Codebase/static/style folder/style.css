@@ -160,6 +160,7 @@
 
 
 /*EVENT CATEGORIES STYLING*/
+
 .Event-Categories h2 {
     font-family: "Rubik Mono One", Arial, Helvetica, sans-serif;
     color: #b22222;
@@ -185,10 +186,11 @@
     height: 100px;
 }
 
-.category-card img {
+.card-img-top {
     border-radius: inherit;
     filter: brightness(60%);
     object-fit: cover;
+    height: 100px;
 }
 
 .card-img-overlay {
@@ -249,8 +251,9 @@ h3 {
 
 
 .card img {
-    height: 100%;
-    object-fit: fill;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
 }
 
 
