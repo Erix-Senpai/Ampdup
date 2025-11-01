@@ -43,7 +43,7 @@
                 <div class="col-lg-12 col-xl-4 center-column">
                     <div class="row">
                         <div class="col">
-                            {% if current_user.is_authenticated and current_user.id == event.owner_id %}
+                            {% if current_user.is_authenticated and event.owner_id == current_user.id %}
                             <div class="card-change-status">
                                 <div class="card-body">
                                     <div class="btn-box">
@@ -244,11 +244,11 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="cancelEventModal">Cancel Event</h1>
                 </div>
-                <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', event_id = event.event_id) }}" method="POST">
-                    {{ cancelBookingForm.hidden_tag() }}                
+                <form class="Event-Page" action="{{ url_for('CancelEvent.cancel_event', event_id = event.event_id) }}" method="POST">
+                    {{ cancelEventForm.hidden_tag() }}                
                     <div class="modal-footer card-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        {{ cancelBookingForm.submit(class="btn btn-danger", value="Cancel Event") }}
+                        {{ cancelEventForm.submit(class="btn btn-danger", value="Cancel Event") }}
                     </div>
                 </form>
             </div>

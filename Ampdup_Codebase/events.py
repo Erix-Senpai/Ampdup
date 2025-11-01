@@ -25,7 +25,7 @@ def event_details(id):
 
     # Check for the dates upon loading events by updating the status.
     end_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
-    end_time = datetime.strptime(event["endTime"], "%H:%M:%S").time()
+    end_time = datetime.strptime(event["endTime"], "%H:%M").time()
     # If event is Not Cancelled, and the date is past the event date, update event status to Inactive.
     if (end_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'):
 

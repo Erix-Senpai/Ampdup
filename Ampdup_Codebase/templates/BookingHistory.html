@@ -37,10 +37,10 @@
                                     <!--View Event Detail-->
                                     <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
                                     <!--If Event > Open, allow owner to Cancel Event. Else, disable Cancel Event.-->
-                                    {% if event.Status == "Open" %}
-                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    {% if event.status == "Open" %}
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</button>
                                     {% else %}
-                                    <a type="button" class="btn btn-danger" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    <button type="button" class="btn btn-danger" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</button>
                                     {% endif %}
                                 </div>
                             </div>
@@ -54,9 +54,9 @@
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="cancelEventModal">Cancel Event</h1>
                             </div>
-                            <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', event_id = event.event_id) }}" method="POST">
+                            <form class="Event-Page" action="{{ url_for('CancelEvent.cancel_event', event_id = event.event_id) }}" method="POST">
                                 {{ cancelEventForm.hidden_tag() }}                
-                                <div class="modal-body modal-dialog-centered">
+                                <div class="modal-footer card-body">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     {{ cancelEventForm.submit(class="btn btn-danger", value="Cancel Event") }}
                                 </div>
