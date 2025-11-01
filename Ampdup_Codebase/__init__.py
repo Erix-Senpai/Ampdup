@@ -33,16 +33,20 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.auth_bp)
 
+    
     from . import purchase_ticket
     app.register_blueprint(purchase_ticket.purchase_ticket_bp)
 
     from . import booking_history
     app.register_blueprint(booking_history.booking_history_bp)
 
-    from . import ticket_cancellation
-    app.register_blueprint(ticket_cancellation.cancel_booking_bp)
+    from . import cancel_booking
+    app.register_blueprint(cancel_booking.cancel_booking_bp)
 
+    from . import cancel_events
+    app.register_blueprint(cancel_events.cancel_event_bp)
 
+    
     # initialise the login manager
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

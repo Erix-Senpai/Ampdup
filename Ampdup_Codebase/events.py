@@ -15,7 +15,8 @@ eventsbp = Blueprint('event', __name__, url_prefix='/events')
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
     view_mode = request.args.get('view_mode', 'default')
-    form = CommentForm()   
+    booking_id = request.args.get('booking_id', 'default')
+    form = CommentForm()
     purchaseform = PurchaseForm()       # Create purchase form instance
     cancelBookingForm = CancelBookingForm()     #Create cancel booking form instance
     cancelEventForm = CancelEventForm()     #Create cancel event form instance
@@ -52,4 +53,4 @@ def event_details(id):
         return redirect(url_for('event.event_details', event = event, event_id=id, view_mode = view_mode))
 
     # Pass the form to the template
-    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)
+    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, booking_id = booking_id, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)

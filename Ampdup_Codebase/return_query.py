@@ -26,7 +26,8 @@ def return_event_query(query: Query):
             "location": events.location,
             "type": events.type,
             "status": events.status,
-            "statusCode": events.statusCode
+            "statusCode": events.statusCode,
+            "owner_id": events.owner_id
         }
         event_list.append(e_list)
     return event_list
@@ -57,7 +58,8 @@ def return_booking_event_query(query: Query):
             "location": events.location,
             "type": events.type,
             "status": events.status,
-            "statusCode": events.statusCode
+            "statusCode": events.statusCode,
+            "owner_id": events.owner_id
         }
         event_list.append(e_list)
 
@@ -84,6 +86,7 @@ def return_single_event_query(events: Query):
         "location": events.location,
         "type": events.type,
         "status": events.status,
-        "statusCode": events.statusCode
+        "statusCode": events.statusCode,
+        "owner_id": events.owner_id
     }
     return event_list
