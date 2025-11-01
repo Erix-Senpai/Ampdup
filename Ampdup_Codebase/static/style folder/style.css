@@ -169,6 +169,7 @@
     word-break: break-word;
     word-wrap: break-word;
     white-space: normal;
+    text-align: center;
 }
 
 .Event-Categories h5 {
@@ -178,6 +179,11 @@
     align-items: center;
 }
 
+
+.Event-Categories .row {
+    row-gap: 1.2rem;
+    justify-content: center;
+}
 
 .card.category-card {
     border-radius: 100px;
