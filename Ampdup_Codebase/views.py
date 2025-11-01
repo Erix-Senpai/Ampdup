@@ -54,13 +54,14 @@ def search():
     if request.args['search'] and request.args['search'] != "":
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
+        searchtext = str(request.args['search'])
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
         newevents = return_event_query(events)
             
         if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
+            return render_template('searchresults.html', events=newevents, searchtext=searchtext)
         else:   
-            return render_template('nosearchresults.html')
+            return render_template('nosearchresults.html', searchtext=searchtext)
         
     else:
         return redirect(url_for('main.index'))
