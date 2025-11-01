@@ -40,13 +40,16 @@ def comment(id):
     return render_template('register/register.html',form=form)
 
 
-@mainbp.route('/trigger500') #Creat a route to trigger a 500 error
+@mainbp.route('/trigger500') #Create a route to trigger a 500 error
 def trigger500():
     # Force a runtime error
     1 / 0
     return "You’ll never see this"
 
 
+#
+# Searching, Sorting, and Filtering:
+#
 import base64
 import sqlalchemy
 from sqlalchemy import desc, asc
@@ -85,7 +88,8 @@ def sort():
     else:
         return redirect(url_for('main.index'))
 
-#--Type Filter Route
+
+#--Filter by Event Type (Type Filter) Route
 @mainbp.route('/typefilter')
 def typefilter():
     if request.args['search'] and request.args['search'] != "":
@@ -103,6 +107,7 @@ def typefilter():
         return redirect(url_for('main.index'))
     
 
+#--Event Sorting Method
 def sort(sort_key: str):
     sort_map = {
         "id_asc": asc(Event.id),
