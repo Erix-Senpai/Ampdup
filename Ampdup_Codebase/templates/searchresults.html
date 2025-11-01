@@ -28,7 +28,7 @@
                         <p><span id="{% if event.status == 'Open' %}badge1{% elif event.status == 'Sold Out'%}badge2{% elif event.status == 'Cancelled'%}badge3{% else %}badge4{% endif %}"
                                 class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                         <h5 class="card-title">{{event.title}} </h5>
-                        <p class="card-text">{{event.description}} </p>
+                        <p class="card-text">AUD ${{event.price}} </p>
                         <div class="d-inline-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
