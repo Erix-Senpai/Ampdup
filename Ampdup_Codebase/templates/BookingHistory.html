@@ -5,18 +5,21 @@
     <main>
         <!--Cards for each event 'previously' booked-->
         <div class="container BookHistoryPage">
-            {% if your_event or booked_event %}
+            <!--If your_event, create list of your_event-->
+            {% if your_event %}
             <div class="container">
-                <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
+                <!--List Events-->
                 <h2>Your Events</h2>
                 {% for event in your_event %}
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
+                            <!--Event Image-->
                             <img src="{{ event.image }}" class="img-fluid" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
+                                <!--Event Details-->
                                 <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                                 <h5 class="card-title"> Event ID:{{event.event_id}} </h5>
                                 <p class="card-text"><small class="text-body-secondary">Ticket remain: {{event.ticket_remain}} / {{event.ticket}} </small></p>
@@ -31,7 +34,9 @@
                                     <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
                                 </div>
                                 <div>
+                                    <!--View Event Detail-->
                                     <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
+                                    <!--If Event > Open, allow owner to Cancel Event. Else, disable Cancel Event.-->
                                     {% if event.Status == "Open" %}
                                     <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
                                     {% else %}
@@ -50,10 +55,10 @@
                                 <h1 class="modal-title fs-5" id="cancelEventModal">Cancel Event</h1>
                             </div>
                             <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', event_id = event.event_id) }}" method="POST">
-                                {{ cancelBookingForm.hidden_tag() }}                
+                                {{ cancelEventForm.hidden_tag() }}                
                                 <div class="modal-body modal-dialog-centered">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    {{ cancelBookingForm.submit(class="btn btn-danger", value="Cancel Event") }}
+                                    {{ cancelEventForm.submit(class="btn btn-danger", value="Cancel Event") }}
                                 </div>
                             </form>
                         </div>
@@ -61,16 +66,20 @@
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
+            {% if booked_event %}
             <div class="container">
-                <!--Use of Flask mixed with Bootstrap and Jinja, running a for loop to generate list of events that are currently running.-->
+                <!--List Bookings-->
                 <h2>Booked Events</h2>
                 {% for event in booked_event %}
                 <div class="card mb-3">
                     <div class="row g-0">
+                        <!--Event Details-->
                         <div class="col-md-4">
                             <img src="{{ event.image }}" class="img-fluid" alt="...">
                         </div>
                         <div class="col-md-8">
+                            
                             <div class="card-body">
                                 <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                                 <h5 class="card-title">Booking ID:{{event.booking_id}} </h5>
@@ -112,7 +121,9 @@
                 </div>
                 {% endfor %}
             </div>
-            {% else %}
+            {% endif %}
+            <!--If no booking, display "No Booked Events."-->
+            {% if not your_event and not booked_event %}
             <h2>No Booked Events Yet.</h2>
             {% endif %}
         </div>

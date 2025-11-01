@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect
 from .forms import EventForm
 from .models import upload_event
 from flask_login import login_required

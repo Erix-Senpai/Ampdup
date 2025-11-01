@@ -31,7 +31,7 @@ class RegisterForm(FlaskForm):
     # submit button
     submit = SubmitField("Register")
 
-
+# Create Event form, date must be 1 day after today.
 class EventForm(FlaskForm):
     def FutureDateOnly(form, fields):
         if (fields.data):
@@ -70,12 +70,13 @@ class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Post')
 
-
+# Cancel Booking form
 class CancelBookingForm(FlaskForm):
     submit = SubmitField("Cancel Form")
-
+# Cancel event form
 class CancelEventForm(FlaskForm):
     submit = SubmitField("Cancel Event")
 
+# Confirm Purchase form
 class PurchaseForm(FlaskForm):
     submit = SubmitField("Confirm Purchase")
