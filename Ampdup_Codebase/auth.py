@@ -25,10 +25,12 @@ def login():
             error = 'Incorrect password'
         if error is None:
             login_user(user)
+            flash('Logged in successfully.')
             return redirect(url_for('main.index')) # redirect to the main index page upon successful login
         else:
             flash(error)
     return render_template('user.html', form=loginform,  heading='Login')
+
 
 
 

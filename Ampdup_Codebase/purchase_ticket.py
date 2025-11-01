@@ -25,7 +25,8 @@ def purchase_ticket(event_id):
         purchaseform = PurchaseForm() #Create purchase form instance
         if purchaseform.validate_on_submit():
             ticket_quantity = int(request.form.get('quantity')) #getting the number of tickets from the form
-             
+
+
         #create a new booking to store in the database
         new_order = Booking(
             user_id=current_user.id,
