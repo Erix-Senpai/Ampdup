@@ -45,6 +45,13 @@ def register():
         
         # create a hashed password
         password_hash = generate_password_hash(password)
+
+
+        #if user already exists
+        existing_user = db.session.scalar(db.select(User).where(User.email==email))
+        if existing_user:
+            flash('A user with that email already exists. Please log in.')
+            return redirect(url_for('auth.login'))
         
         #create a new user model object
         new_user = User(
@@ -59,6 +66,12 @@ def register():
         db.session.commit()
         flash('You have successfully registered! Please log in.')
         return redirect(url_for('auth.login'))
+    
+    else:
+        if registerform.errors:
+            for err_msg in registerform.errors.values():
+                flash(f'Error registering user: {err_msg}')
+
     return render_template('user.html', form=registerform, heading='Register')
 
 
