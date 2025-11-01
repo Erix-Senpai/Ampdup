@@ -15,7 +15,8 @@ eventsbp = Blueprint('event', __name__, url_prefix='/events')
 @eventsbp.route('/<id>', methods=['GET', 'POST'])
 def event_details(id):
     view_mode = request.args.get('view_mode', 'default')
-    form = CommentForm()   
+    booking_id = request.args.get('booking_id', 'default')
+    form = CommentForm()
     purchaseform = PurchaseForm()       # Create purchase form instance
     cancelBookingForm = CancelBookingForm()     #Create cancel booking form instance
     cancelEventForm = CancelEventForm()     #Create cancel event form instance
@@ -25,7 +26,7 @@ def event_details(id):
 
     # Check for the dates upon loading events by updating the status.
     end_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
-    end_time = datetime.strptime(event["endTime"], "%H:%M:%S").time()
+    end_time = datetime.strptime(event["endTime"], "%H:%M").time()
     # If event is Not Cancelled, and the date is past the event date, update event status to Inactive.
     if (end_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'):
 
@@ -52,4 +53,4 @@ def event_details(id):
         return redirect(url_for('event.event_details', event = event, event_id=id, view_mode = view_mode))
 
     # Pass the form to the template
-    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)
+    return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, booking_id = booking_id, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)
