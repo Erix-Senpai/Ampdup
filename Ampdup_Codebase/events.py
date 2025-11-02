@@ -27,11 +27,17 @@ def event_details(id):
     # Check for the dates upon loading events by updating the status.
     end_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
     end_time = datetime.strptime(event["endTime"], "%H:%M").time()
+
+    if (query.ticket_remain == 0 and query.status == 'Open'):
+        query.status = 'Sold Out'
+        query.statusCode = 'badge2'
+        db.session.commit()
+
     # If event is Not Cancelled, and the date is past the event date, update event status to Inactive.
     if (end_date < date.today() and end_time < datetime.now().time() and event.status != 'Cancelled'):
 
-        event.status = 'Inactive'
-        event.statusCode = 'badge4'          
+        query.status = 'Inactive'
+        query.statusCode = 'badge4'          
         db.session.commit()
             # change active status"
     # Comment form
