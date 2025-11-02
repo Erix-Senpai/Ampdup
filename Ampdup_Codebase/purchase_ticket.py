@@ -17,7 +17,9 @@ def purchase_ticket(event_id):
 
     #if user is logged in, proceed with ticket purchase
     else:
-        event = db.session.get(Event, event_id) 
+        event = db.session.scalar(db.select(Event).where(Event.id==event_id))
+        
+        
         if not event: #If event does not exist, message is flashed
             flash('Event not found.')
             return redirect(url_for('main.index'))
@@ -37,6 +39,9 @@ def purchase_ticket(event_id):
 
         # Deduct the purchased tickets from the remaining tickets
         event.ticket_remain = event.ticket_remain - ticket_quantity
+        if (event.ticket_remain == 0 and event.status == 'Open'):
+            event.status = 'Sold Out'
+            event.statusCode = 'badge2'
         db.session.add(new_order) 
         db.session.commit()
         #flash successful purchase message to user with the order ID
