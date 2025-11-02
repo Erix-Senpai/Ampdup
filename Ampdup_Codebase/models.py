@@ -89,7 +89,7 @@ def upload_event(event_form):
          case 6: type = "Music Festival"
          case 7: type = "Gig"
          case _: type = "Concert"
-    status = event_form.status.data
+    status = 1
     match status:
          case 1:
             status = "Open"
