@@ -54,13 +54,14 @@ def search():
     if request.args['search'] and request.args['search'] != "":
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
+        searchtext = str(request.args['search'])
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
         newevents = return_event_query(events)
             
         if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
+            return render_template('searchresults.html', events=newevents, searchtext=searchtext)
         else:   
-            return render_template('nosearchresults.html')
+            return render_template('nosearchresults.html', searchtext=searchtext)
         
     else:
         return redirect(url_for('main.index'))
@@ -72,10 +73,11 @@ def search():
 def sort():
     if request.args['sort'] and request.args['sort'] != "":
         sort_type = sort(request.args.get('sort'))
+        searchtext = str(request.args['sort'])
         evsort = db.session.scalars( db.select(Event).where(Event.status != 'Inactive').order_by(sort_type)) 
         newevents = return_event_query(evsort)
         if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
+            return render_template('searchresults.html', events=newevents, searchtext=searchtext)
         else:   
             return render_template('nosearchresults.html')
     
@@ -90,11 +92,12 @@ def typefilter():
         
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
+        searchtext = str(request.args['search'])
         events = db.session.scalars( db.select(Event).where( (Event.type.like(query)) ) )
         
         newevents = return_event_query(events)
         if (newevents.__len__() > 0):
-            return render_template('searchresults.html', events=newevents)
+            return render_template('searchresults.html', events=newevents,searchtext=searchtext)
         else:   
             return render_template('nosearchresults.html')
     else:

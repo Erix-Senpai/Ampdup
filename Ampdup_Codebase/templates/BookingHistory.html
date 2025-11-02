@@ -37,10 +37,10 @@
                                     <!--View Event Detail-->
                                     <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
                                     <!--If Event > Open, allow owner to Cancel Event. Else, disable Cancel Event.-->
-                                    {% if event.Status == "Open" %}
-                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    {% if event.status != 'Inactive' and event.status != 'Cancelled' %}
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</button>
                                     {% else %}
-                                    <a type="button" class="btn btn-danger" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</a>
+                                    <button type="button" class="btn btn-danger" disabled data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</button>
                                     {% endif %}
                                 </div>
                             </div>
@@ -54,9 +54,9 @@
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="cancelEventModal">Cancel Event</h1>
                             </div>
-                            <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', event_id = event.event_id) }}" method="POST">
+                            <form class="Event-Page" action="{{ url_for('CancelEvent.cancel_event', event_id = event.event_id) }}" method="POST">
                                 {{ cancelEventForm.hidden_tag() }}                
-                                <div class="modal-body modal-dialog-centered">
+                                <div class="modal-footer card-body">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     {{ cancelEventForm.submit(class="btn btn-danger", value="Cancel Event") }}
                                 </div>
@@ -95,7 +95,7 @@
                                         <p class="card-text"><small class="text-body-secondary">{{event.location}} </small></p>
                                     </div>
                                     <div>
-                                        <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
+                                        <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking', booking_id = event.booking_id) }}" class="btn btn-primary">View Details</a>
                                         <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelBooking-{{event.booking_id}}">Cancel Booking</a>
                                     </div>
                             </div>
@@ -111,7 +111,7 @@
                             </div>
                             <form class="Event-Page" action="{{ url_for('CancelBooking.cancel_booking', booking_id = event.booking_id) }}" method="POST">
                                 {{ cancelBookingForm.hidden_tag() }}                
-                                <div class="modal-body modal-dialog-centered">
+                                <div class="modal-footer card-body">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     {{ cancelBookingForm.submit(class="btn btn-danger", value="Cancel Booking") }}
                                 </div>
