@@ -18,7 +18,6 @@ def index():
 
 @mainbp.route('/<id>/comment',methods=["GET","POST"])
 def comment(id):
-    print('Method type: ', request.method)
     form = CommentForm()
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     if form.validate_on_submit():
@@ -29,7 +28,6 @@ def comment(id):
         db.session.add(c) # add comment to session
         db.session.commit() # write to database
         
-        print('Successful Comment Post')
         return redirect(url_for('main.index'))
     return render_template('register/register.html',form=form)
 
@@ -52,7 +50,6 @@ from sqlalchemy import desc, asc
 @mainbp.route('/search')
 def search():
     if request.args['search'] and request.args['search'] != "":
-        print(request.args['search'])
         query = "%" + request.args['search'] + "%"
         searchtext = str(request.args['search'])
         events = db.session.scalars( db.select(Event).where( (Event.title.like(query)) + (Event.description.like(query)) ) ) 
@@ -90,7 +87,6 @@ def sort():
 def typefilter():
     if request.args['search'] and request.args['search'] != "":
         
-        print(request.args['search'])
         query = "%" + request.args['search'] + "%"
         searchtext = str(request.args['search'])
         events = db.session.scalars( db.select(Event).where( (Event.type.like(query)) ) )

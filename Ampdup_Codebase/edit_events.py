@@ -14,13 +14,12 @@ def edit_event(event_id):
 
     event = db.session.get(Event, event_id)  #Query for event submitted.
     # Convert DB objects for datetime from str to datetime.
-    if (event.owner_id != current_user.id):
+    if (event.owner_id != current_user.id):     #Safecheck if owner == current user.
         flash('Warning: Owner validation failed!')
         return redirect(url_for('main.index'))
 
     event_form = EventForm()
     if (event_form.validate_on_submit()):   #If Submitted Form is valid.
-        print("VALIDATE?")
         update_event(event, event_form)
         # commit to the database
         db.session.commit()

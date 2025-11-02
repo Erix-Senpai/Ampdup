@@ -90,22 +90,7 @@ def upload_event(event_form):
          case 7: type = "Gig"
          case _: type = "Concert"
     status = 1
-    match status:
-         case 1:
-            status = "Open"
-            statusCode = "badge1"
-         case 2:
-            status = "Cancelled"
-            statusCode = "badge2"
-         case 3:
-            status = "Sold Out"
-            statusCode = "badge3"
-         case 4:
-            status = "Inactive"
-            statusCode = "badge4"
-         case  _ :
-            status = "Inactive"
-            statusCode = "badge4"
+    statusCode = "badge1"
     owner_id = current_user.id
     event = Event(title, description, image, price, ticket, ticket_remain, date, startTime, endTime, location, type, status, statusCode, owner_id)
     # add the object to the db session

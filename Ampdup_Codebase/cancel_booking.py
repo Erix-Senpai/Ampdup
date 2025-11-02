@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, flash
+from flask import Blueprint, redirect, url_for, flash
 from flask_login import current_user, login_required
 from .models import db, Event, Booking
 from .forms import CancelBookingForm
@@ -24,10 +24,10 @@ def cancel_booking(booking_id):
         booked_event = Booking.query.filter_by(id = booking_id, user_id = current_user.id).first()  #Query for Bookings of current user.
 
         if not booked_event:
-            flash('Booking not found.')
+            flash('Booking not found.')     #If booking not found.
             return redirect(url_for('main.index'))
         
-        if (booked_event.user_id != current_user.id):
+        if (booked_event.user_id != current_user.id):   #Safecheck if attempted user truely owns this booking
             flash('Warning: Booking user validation failed!')
             return redirect(url_for('main.index'))
         

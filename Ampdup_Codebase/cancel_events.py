@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, flash
+from flask import Blueprint, redirect, url_for, flash
 from flask_login import current_user, login_required
 from .models import db, Event, Booking
 from .forms import CancelEventForm
@@ -20,7 +20,8 @@ def cancel_event(event_id):
             return redirect(url_for('main.index'))
         
         event = db.session.get(Event, event_id)    #Query for event submitted.
-        if (event.owner_id != current_user.id):
+
+        if (event.owner_id != current_user.id):     #Safecheck whether current user truely owns this event.
             flash('Warning: Owner validation failed!')
             return redirect(url_for('main.index'))
         if not (event):
