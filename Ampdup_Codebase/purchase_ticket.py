@@ -27,6 +27,16 @@ def purchase_ticket(event_id):
             ticket_quantity = int(request.form.get('quantity')) #getting the number of tickets from the form
 
 
+        max_tickets_per_user = 10
+
+        past_bookings = db.session.scalar(db.select(db.func.sum(Booking.quantity)).where(Booking.user_id == current_user.id, Booking.event_id == event.id))
+        past_bookings = int(past_bookings or 0)
+
+
+        if ticket_quantity + past_bookings > max_tickets_per_user:
+            flash(f'You can only purchase a maximum of {max_tickets_per_user} tickets for this event. You have already purchased {past_bookings} ticket(s).')
+            return redirect(url_for('event.event_details', id=event.id))
+
         #create a new booking to store in the database
         new_order = Booking(
             user_id=current_user.id,

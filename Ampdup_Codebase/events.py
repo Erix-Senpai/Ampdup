@@ -24,6 +24,7 @@ def event_details(id):
     query = db.session.scalar(db.select(Event).where(Event.id==id))
     event = return_single_event_query(query)
 
+
     # Check for the dates upon loading events by updating the status.
     end_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
     end_time = datetime.strptime(event["endTime"], "%H:%M").time()

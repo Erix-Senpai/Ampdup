@@ -217,7 +217,7 @@
                         <div class="modal-ticket-row">
                             <p class="modal-ticket-price"> Price: ${{ event.price }}</p>
                             <div class = "ticket-quantity-input">
-                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ event.ticket_remain }}" value="1" required>
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ event.ticket_remain }}" value="0" required>
                             </div> 
                         </div>
                         <small class="modal-tickets-available"> Available Tickets: {{ event.ticket_remain }} / {{ event.ticket}} </small>         
@@ -225,7 +225,11 @@
 
                     <div class="modal-footer card-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        {{ purchaseform.submit(class="btn btn-primary", value="Confirm Purchase") }}
+                         {% if event.ticket_remain == 0 %}
+                            <input type="submit" class="btn btn-primary" value="Sold Out" disabled>
+                         {% else %}
+                            {{ purchaseform.submit(class="btn btn-primary", value="Confirm Purchase") }}
+                        {% endif %}
                     </div>
                 </form>
             </div>
