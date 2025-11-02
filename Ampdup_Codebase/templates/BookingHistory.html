@@ -36,6 +36,7 @@
                                     <!--View Event Detail-->
                                     <a href="{{ url_for('event.event_details', id=event.event_id, view_mode = 'past_booking') }}" class="btn btn-primary">View Details</a>
                                     <!--If Event > Open, allow owner to Cancel Event. Else, disable Cancel Event.-->
+                                    <a href="{{ url_for('EditEvent.edit_event', event_id = event.event_id) }}" class="btn btn-primary">Edit Event</a>
                                     {% if event.status != 'Inactive' and event.status != 'Cancelled' %}
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelEvent-{{event.event_id}}">Cancel Event</button>
                                     {% else %}

@@ -62,7 +62,6 @@ class EventForm(FlaskForm):
     endTime = TimeField("Event End Time", format="%H:%M", default=time(23,59), validators=[DataRequired(message="Must have an ending time.")])
     location = StringField("Event Location", validators=[InputRequired(message="Must have a location for the event.")])
     type = SelectField("Event Type", choices=[(1, "Concert"),(2, "DJ Event"),(3, "Club Night"),(4, "Disco"),(5, "Classical"),(6, "Music Festival"),(7, "Gig")], coerce=int)
-    status = SelectField("Event Status", choices=[(1, "Open"), (2, "Cancelled"), (3, "Sold Out"), (4, "Inactive")], coerce=int)
     
 
 # User comment form

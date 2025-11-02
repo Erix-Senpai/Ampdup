@@ -33,7 +33,8 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.auth_bp)
 
-    
+    from . import edit_events
+    app.register_blueprint(edit_events.edit_event_bp)    
     from . import purchase_ticket
     app.register_blueprint(purchase_ticket.purchase_ticket_bp)
 
