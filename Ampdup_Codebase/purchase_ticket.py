@@ -33,7 +33,7 @@ def purchase_ticket(event_id):
         past_bookings = int(past_bookings or 0)
 
 
-        if ticket_quantity + past_bookings > max_tickets_per_user:
+        if current_user.id != event.owner_id and (ticket_quantity + past_bookings > max_tickets_per_user):
             flash(f'You can only purchase a maximum of {max_tickets_per_user} tickets for this event. You have already purchased {past_bookings} ticket(s).')
             return redirect(url_for('event.event_details', id=event.id))
 
