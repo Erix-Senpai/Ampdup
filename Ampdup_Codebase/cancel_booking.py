@@ -2,7 +2,6 @@ from flask import Blueprint, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from .models import db, Event, Booking
 from .forms import CancelBookingForm
-from .return_query import return_single_event_query
 
 
 cancel_booking_bp = Blueprint('CancelBooking', __name__, url_prefix='/Cancel_Booking')
