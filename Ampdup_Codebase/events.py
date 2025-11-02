@@ -65,3 +65,5 @@ def event_details(id):
 
     # Pass the form to the template
     return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, booking_id = booking_id, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)
+
+

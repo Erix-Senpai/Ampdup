@@ -22,6 +22,11 @@
                     <!--event.status to determine the current event's status, as well as statuscode to display current status's colour. -->
                     <p><span id="{{ event.statusCode }}" class="badge rounded-pill text-bg-primary">{{ event.status }} </span></p>
                 </div>
+                <div>
+                    {% if current_user.is_authenticated and event.owner_id == current_user.id %}
+                        <a href="{{ url_for('CreateEvent.update_event', event_id=event.event_id) }}" class="btn btn-warning">Edit Event</a>
+                    {% endif %}
+                </div>
                 <!--Cancel Event Button, limited to authenticated user & event creator/owner-->
                 <div class="col-lg-12 col-xl-4 center-column">
                     <div class="row">
