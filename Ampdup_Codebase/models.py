@@ -89,7 +89,7 @@ def upload_event(event_form):
          case 6: type = "Music Festival"
          case 7: type = "Gig"
          case _: type = "Concert"
-    status = 1
+    status = "Open"
     statusCode = "badge1"
     owner_id = current_user.id
     event = Event(title, description, image, price, ticket, ticket_remain, date, startTime, endTime, location, type, status, statusCode, owner_id)
