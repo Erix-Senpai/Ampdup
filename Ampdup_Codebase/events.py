@@ -52,7 +52,7 @@ def event_details(id):
             return redirect(url_for('auth.login'))  # Redirect to login if not authenticated
         # read the comment from the form, associate the Comment's event field
         # with the event object from the above DB query
-        comment = Comment(text=form.text.data, event=event, user=current_user) 
+        comment = Comment(text=form.text.data, event=query, user=current_user) 
         # here the back-referencing works - comment.event is set
         # and the link is created
         db.session.add(comment) 
@@ -61,7 +61,7 @@ def event_details(id):
         # flash('Your comment has been added', 'success')  
         print('Your comment has been added', 'success') 
         # using redirect sends a GET request to event.show
-        return redirect(url_for('event.event_details', event = event, event_id=id, view_mode = view_mode))
+        return redirect(url_for('event.event_details', id=id, view_mode=view_mode))
 
     # Pass the form to the template
     return render_template('Event_Details.html', event=event, form=form, purchaseform = purchaseform, booking_id = booking_id, cancelBookingForm = cancelBookingForm, cancelEventForm = cancelEventForm, view_mode = view_mode)

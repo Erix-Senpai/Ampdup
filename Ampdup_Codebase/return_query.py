@@ -87,6 +87,7 @@ def return_single_event_query(events: Query):
         "type": events.type,
         "status": events.status,
         "statusCode": events.statusCode,
-        "owner_id": events.owner_id
+        "owner_id": events.owner_id,
+        "comments": events.comments
     }
     return event_list
