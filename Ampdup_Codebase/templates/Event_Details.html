@@ -3,23 +3,6 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
-
-<!-- flashes any messages to the user -->
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="container-fluid">
-    <div class="row mt-3 mb-3">
-        <div class="col-md-12">
-            {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-{% endif %}
-{% endwith %}
-
-
             <!--Main Hero image for Event Details Page-->
             <div class="container EventDetailsImage">
                 <div class="row">
