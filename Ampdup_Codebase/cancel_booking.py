@@ -2,6 +2,7 @@ from flask import Blueprint, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from .models import db, Event, Booking
 from .forms import CancelBookingForm
+from .return_query import return_single_event_query
 
 
 cancel_booking_bp = Blueprint('CancelBooking', __name__, url_prefix='/Cancel_Booking')
@@ -31,14 +32,18 @@ def cancel_booking(booking_id):
             flash('Warning: Booking user validation failed!')
             return redirect(url_for('main.index'))
         
-        event = db.session.get(Event, booked_event.event_id)    #Query for events that were booked.
-
+        event = db.session.scalar(db.select(Event).where(Event.id==booked_event.event_id))  #Query for events that were booked.
         if not event:
             flash('Event not found.')
             return redirect(url_for('main.index'))
         
         ticket_quantity = int(booked_event.quantity)    #Update ticket remaining for the event, and update db.
         event.ticket_remain += ticket_quantity
+
+        if (event.ticket_remain > 0 and event.status == 'Sold Out'):
+            event.status = 'Open'
+            event.statusCode = 'badge1'
+            db.session.commit()
         db.session.delete(booked_event)
         db.session.commit()
     

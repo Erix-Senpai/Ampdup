@@ -28,6 +28,11 @@ def event_details(id):
     end_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
     end_time = datetime.strptime(event["endTime"], "%H:%M").time()
 
+    if (query.ticket_remain > 0 and query.status == 'Sold Out'):
+        query.status = 'Open'
+        query.statusCode = 'badge1'
+        db.session.commit()
+
     if (query.ticket_remain == 0 and query.status == 'Open'):
         query.status = 'Sold Out'
         query.statusCode = 'badge2'
